@@ -1,0 +1,9 @@
+[core]
+    editor = vim
+[user]
+	name = mingo
+	email = ipod825@gmail.com
+[alias]
+	st = status
+	cm = commit
+    co = checkout
