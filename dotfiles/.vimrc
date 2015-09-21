@@ -22,7 +22,6 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 
 "Completion
-Bundle 'vim-scripts/AutoComplPop'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
@@ -38,9 +37,9 @@ Bundle 'vim-scripts/EasyGrep'
 "Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 
 " auto reload vimrc when editing it
-augroup myvimrc
-	au!
-	au BufWritePost .nvimrc,.vimrc,so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup reload_vimrc
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
 "Restore cursor to file position in previous editing session
@@ -146,7 +145,6 @@ map tp :cp<CR>						" move to the prev error
 map tj <C-w>w
 map tk <C-w>w
 
-
 "toggles paste mode
 noremap <leader>p :set invpaste<CR>
 set pastetoggle=<leader>p
@@ -193,6 +191,8 @@ set cot-=preview "disable doc preview in omnicomplete
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
+"
+let syntastic_cpp_check_header = 1
 
 "Ctrlp
 let g:ctrlp_map = '<c-o>'
@@ -263,4 +263,18 @@ let g:EasyGrepReplaceWindowMode = 2
 
 " Surround
 nmap <leader>0 ysiw)
-nmap <leader>] csiw]
+nmap <leader>] ysiw]
+
+function! s:VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+
+" recursively vimgrep for word under cursor or selection if you hit leader-star
+nmap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
+vmap <leader>* :<C-u>call <SID>VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>

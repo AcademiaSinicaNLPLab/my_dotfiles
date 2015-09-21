@@ -36,8 +36,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'vim-scripts/EasyGrep'
 Bundle 'bling/vim-airline'
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-session'
+
 
 "Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 
@@ -48,32 +47,9 @@ augroup reload_vimrc
 augroup END
 
 "Restore cursor to file position in previous editing session
-set viminfo='10,\"100,:20,%,n~/.nviminfo
+set viminfo='10,\"100,:200,n~/.nviminfo
 
-augroup auto_cd
-    autocmd BufEnter * silent! lcd %:p:h
-augroup END
-
-augroup term_emul
-    autocmd! BufNewFile term.* echo "command implemented!"
-augroup END
-
-fu! Delbuf()
-    echo "sad"
-endfunction 
-
-fu! Ccd()
-    let l=search('\%' . virtcol('.') . 'v\S', 'bW')
-    let line = getline(l)
-    let cmd=join(split(line)[2:-1],' ') "This assumses there are two space before the real command in addition to the shell prompts
-    let arg0 = strpart(cmd, 0, 2)
-    let arg1 = strpart(cmd,2, strlen(cmd)-2)
-    if arg0=='cd'
-       silent! lcd `=arg1`
-    endif
-endfunction
-
-tnoremap <Cr> <C-\><C-n>:call Ccd()<Cr>i<Cr>
+let g:terminal_scrollback_buffer_size=100000 
 
 augroup nvimrc
     autocmd!
@@ -113,6 +89,7 @@ vnoremap <Space> zf
 
 "timeout
 set timeoutlen=500
+set ttimeoutlen=0
 
 "Diff
 set diffopt+=vertical
@@ -146,7 +123,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <C-a> <C-w>
 nnoremap <M-t> :tabe<CR>:tabmove 0<CR>:terminal zsh<CR>
-nnoremap <leader>t :terminal zsh<CR>
+nnoremap <leader>t <C-w>v<C-w>l:terminal zsh<CR><C-\><C-n><C-w>hi
 
 inoremap <C-j> <Esc>gji
 inoremap <C-k> <Esc>gki
@@ -164,8 +141,12 @@ tnoremap jk <C-\><C-n>
 tnoremap <C-l> <Right>
 tnoremap <M-h> <Home>
 tnoremap <M-l> <End>
-tnoremap <C-p> <Up>
-tnoremap <C-n> <Down>
+tnoremap <C-j> <Down>
+tnoremap <C-k> <Up>
+tnoremap <Cr> <C-\><C-n>:call Ccd()<Cr>i<Cr>
+tnoremap <C-a> <C-\><C-n><C-w>
+tnoremap <C-z> <C-v><C-z>
+"tnoremap <Cr> <C-\><C-n>:call Ccd()<Cr>
 
 "map <leader>cc :botright cope<CR> 	" open the error console
 map to	:copen<Cr>
@@ -200,7 +181,7 @@ let g:ctrlp_root_markers = ['.git']
 "let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:15,results:10'
 "let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_tabpage_position = 'a'
-"let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_working_path_mode = 'rw'
 "let g:ctrlp_use_caching = 1
 "let g:ctrlp_clear_cache_on_exit = 0
 "let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
@@ -262,3 +243,62 @@ let g:EasyGrepReplaceWindowMode = 2
 " Surround
 nmap <leader>0 ysiw)
 nmap <leader>] csiw]
+
+
+let g:num_buffer_kept=20
+"--------------------------------------------------------------------------- 
+" PLUGIN SETTINGS
+"--------------------------------------------------------------------------- 
+"To be written into pluggin
+
+augroup auto_close
+    autocmd BufNew * call BufferGC()
+augroup End
+
+function! BufferGC()
+    "From tabpagebuflist() help, get a list of all buffers in all tabs
+    let tablist = []
+    for i in range(tabpagenr('$'))
+        call extend(tablist, tabpagebuflist(i + 1))
+    endfor
+
+    let nBuffer = bufnr('$')
+    for b in range(1, bufnr('$')-1)
+        if nBuffer<=g:num_buffer_kept
+            break
+        endif
+        if buflisted(b) && !getbufvar(b,"&mod") && index(tablist, b) == -1
+        "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
+            exec 'bwipeout!' b
+            let nBuffer = nBuffer-1
+        endif
+    endfor
+endfunction
+
+augroup auto_cd
+    autocmd BufEnter * silent! lcd %:p:h
+augroup END
+
+fu! Ccd()
+    call cursor(line('$'),0)
+    let l=search('\%' . virtcol('.') . 'v\S', 'bW')
+    let line = getline(l)
+    let pystr = "'" . line . "'" . ".index('cd')"
+    silent! let beg = pyeval(pystr)
+    if beg!=0
+        let dir = strpart(line, beg+3, strlen(line)-beg+3)
+        echom "now" dir
+        silent! lcd `=dir`
+    endif
+endfunction
+
+function! s:VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+
+" recursively vimgrep for word under cursor or selection if you hit leader-star
+nmap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
+vmap <leader>* :<C-u>call <SID>VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
