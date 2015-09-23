@@ -34,6 +34,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'vim-scripts/EasyGrep'
+Bundle 'mbbill/undotree'
 "Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 
 " auto reload vimrc when editing it
