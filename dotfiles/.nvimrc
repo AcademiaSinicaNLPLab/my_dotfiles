@@ -24,7 +24,6 @@ Bundle 'vim-scripts/tlib'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
-Bundle 'vim-scripts/YankRing.vim'
 Bundle 'vim-scripts/EasyGrep'
 Bundle 'bling/vim-airline'
 Bundle 'nelstrom/vim-visual-star-search'
@@ -32,8 +31,12 @@ Bundle 'mbbill/undotree'
 Bundle 'kana/vim-textobj-user'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'christophermca/meta5'
+Bundle 'jceb/vim-orgmode'
+Bundle 'chrisbra/NrrwRgn'
+Bundle 'Shougo/unite.vim'
 "Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 "Bundle 'gregsexton/gitv'
+
 
 """ VIM
 " auto reload vimrc when editing it
@@ -63,8 +66,6 @@ set wildmenu            " wild char completion menu
 set wildchar=<TAB>      " start wild expansion in the command line using <TAB>
 set wildignore=*/.git/*,*.o,*.class,*.pyc "ignore these files while expanding wild chars
 set autoread
-"VirtualEdit
-set ve=block
 "Appearance
 set background=dark
 colorscheme ron
@@ -72,6 +73,7 @@ set showmatch		    " Cursor shows matching ) and }
 syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
+set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
 "Fold
@@ -85,6 +87,7 @@ set ttimeoutlen=0
 set diffopt+=vertical
 cnoreabbrev dp diffput
 augroup diffsetting
+    autocmd!
     autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 augroup diffsetting
 "Tab
@@ -102,17 +105,23 @@ augroup End
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
-tnoremap <Esc> <C-\><C-n>
-tnoremap jk <C-\><C-n>
+nnoremap <leader>t :terminal zsh<CR>
+nnoremap <M-t> <C-w>v<C-w>l:terminal zsh<CR>
+tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
+tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
+tnoremap <C-a> <C-\><C-n><C-w>
 tnoremap <C-l> <Right>
 tnoremap <M-h> <Home>
 tnoremap <M-l> <End>
 tnoremap <C-j> <Down>
 tnoremap <C-k> <Up>
-tnoremap <Cr> <C-\><C-n>:call Ccd()<Cr>i<Cr>
-tnoremap <C-a> <C-\><C-n><C-w>
+tnoremap <C-w> <C-\><C-n><C-w>
 tnoremap <C-z> <C-v><C-z>
-"tnoremap <Cr> <C-\><C-n>:call Ccd()<Cr>
+augroup term
+    autocmd!
+    autocmd BufEnter * if @%[0:6]=='term://' | startinsert | endif
+augroup End
+
 
 
 """ KEY MAPPING
@@ -130,8 +139,6 @@ nnoremap <C-l> <Esc>:tabn<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap <C-a> <C-w>
-nnoremap <M-t> :tabe<CR>:tabmove 0<CR>:terminal zsh<CR>
-nnoremap <leader>t <C-w>v<C-w>l:terminal zsh<CR><C-\><C-n><C-w>hi
 nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 cnoremap <C-j> <Down>
@@ -165,6 +172,31 @@ cnoreabbrev cpq CtrlPQuickfix
 cnoreabbrev cpt CtrlPTag
 cnoreabbrev cpb CtrlPBookmarkDir
 
+" EasyGrep
+let g:EasyGrepInvertWholeWord = 1
+let g:EasyGrepMode = 2
+let g:EasyGrepReplaceWindowMode = 2
+
+" Surround
+nmap <leader>0 ysiw)
+nmap <leader>] ysiw]
+nmap <leader>' ysiw'
+nmap <leader>" ysiw"
+
+"vim-textobj-utils
+call textobj#user#plugin('comma', {
+\   'comma':{
+\      'pattern': '[^,]\+,',
+\      'select': ['ac', 'ic'],
+\},
+\})
+
+"Unite
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>y :<C-u>Unite history/yank<CR>
+"nnoremap <leader>/ :Unite grep:.<cr>
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
 
 "vim-latex
 "set grepprg=grep\ -nH\ $*
@@ -192,37 +224,22 @@ cnoreabbrev cpb CtrlPBookmarkDir
 "highlight SpellLocale term=underline cterm=underline
 "highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 "highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
-
-" EasyGrep
-let g:EasyGrepInvertWholeWord = 1
-let g:EasyGrepMode = 2
-let g:EasyGrepReplaceWindowMode = 2
-
-" Surround
-nmap <leader>0 ysiw)
-nmap <leader>] ysiw]
-nmap <leader>' ysiw'
-nmap <leader>" ysiw"
-
-"vim-textobj-utils
-call textobj#user#plugin('comma', {
-\   'comma':{
-\      'pattern': '[^,]\+,',
-\      'select': ['ac', 'ic'],
-\},
-\})
+"
 
 
-let g:num_buffer_kept=20
-"--------------------------------------------------------------------------- 
-" PLUGIN SETTINGS
-"--------------------------------------------------------------------------- 
+""" Functions
+fu! RestoreCursor()
+    let l=search('\%' . virtcol('.') . 'v\S', 'bW')
+    call cursor(l,0)
+endfunction
 
-"To be written into pluggin
 
-augroup auto_close
-    autocmd BufNew * call BufferGC()
-augroup End
+"""To be written into pluggin
+
+"let g:num_buffer_kept=20
+"augroup auto_close
+"    autocmd BufNew * call BufferGC()
+"augroup End
 
 function! BufferGC()
     "From tabpagebuflist() help, get a list of all buffers in all tabs
@@ -242,22 +259,5 @@ function! BufferGC()
             let nBuffer = nBuffer-1
         endif
     endfor
-endfunction
-
-augroup auto_cd
-    autocmd BufEnter * silent! lcd %:p:h
-augroup END
-
-fu! Ccd()
-    call cursor(line('$'),0)
-    let l=search('\%' . virtcol('.') . 'v\S', 'bW')
-    let line = getline(l)
-    let pystr = "'" . line . "'" . ".index('cd')"
-    silent! let beg = pyeval(pystr)
-    if beg!=0
-        let dir = strpart(line, beg+3, strlen(line)-beg+3)
-        echom "now" dir
-        silent! lcd `=dir`
-    endif
 endfunction
 

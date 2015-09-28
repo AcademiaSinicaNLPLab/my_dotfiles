@@ -63,7 +63,6 @@ addSubPath $HOME/.nvim/rplugin
 
 
 #nvim chpwd hook
-alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvim nvim'
 neovim_autocd() {
     [ $NVIM_LISTEN_ADDRESS ] && neovim-autocd.py
 }
