@@ -1,43 +1,38 @@
-""" VUNDLE
-let iCanHazVundle=1
-let vundle_readme=expand('~/.nvim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-  let iCanHazVundle=0
+if empty(glob('~/.nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PluginInstall
 endif
+call plug#begin('~/.nvim/plugged')
+Plug 'embear/vim-localvimrc'
+Plug 'kchmck/vim-coffee-script'
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#end()
 
-Bundle 'gmarik/vundle'
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'vim-scripts/tlib'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
+Plug 'vim-scripts/EasyGrep'
+Plug 'bling/vim-airline'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'mbbill/undotree'
+Plug 'kana/vim-textobj-user'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'christophermca/meta5'
+Plug 'jceb/vim-orgmode'
+Plug 'chrisbra/NrrwRgn'
+Plug 'Shougo/unite.vim'
+Plug 'godlygeek/tabular'
+""Bundle 'Shougo/deoplete.nvim'
+""Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
+""Bundle 'gregsexton/gitv'
 
-Bundle 'tpope/vim-fugitive'
-Bundle 'jiangmiao/auto-pairs'
-"Bundle 'Townk/vim-autoclose'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'vim-scripts/tlib'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'vim-scripts/EasyGrep'
-Bundle 'bling/vim-airline'
-Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'mbbill/undotree'
-Bundle 'kana/vim-textobj-user'
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'christophermca/meta5'
-Bundle 'jceb/vim-orgmode'
-Bundle 'chrisbra/NrrwRgn'
-Bundle 'Shougo/unite.vim'
-Bundle 'godlygeek/tabular'
-"Bundle 'Shougo/deoplete.nvim'
-"Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
-"Bundle 'gregsexton/gitv'
 
 
 """ VIM
