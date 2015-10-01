@@ -4,11 +4,6 @@ if empty(glob('~/.nvim/autoload/plug.vim'))
   autocmd VimEnter * PluginInstall
 endif
 call plug#begin('~/.nvim/plugged')
-Plug 'embear/vim-localvimrc'
-Plug 'kchmck/vim-coffee-script'
-
-call plug#end()
-
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'garbas/vim-snipmate'
@@ -21,17 +16,16 @@ Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/EasyGrep'
 Plug 'bling/vim-airline'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'kana/vim-textobj-user'
-Plug 'jlanzarotta/bufexplorer'
-Plug 'christophermca/meta5'
-Plug 'jceb/vim-orgmode'
 Plug 'chrisbra/NrrwRgn'
 Plug 'Shougo/unite.vim'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'Shougo/deoplete.nvim'
 ""Bundle 'Shougo/deoplete.nvim'
 ""Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 ""Bundle 'gregsexton/gitv'
+call plug#end()
 
 
 

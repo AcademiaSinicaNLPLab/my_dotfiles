@@ -66,7 +66,7 @@ addSubPath $HOME/.nvim/rplugin
 neovim_autocd() {
     [ $NVIM_LISTEN_ADDRESS ] && neovim-autocd.py
 }
-chpwd_functions+=( neovim_autocd )
+#chpwd_functions+=( neovim_autocd )
 
 #alias
 autoload -U zmv
