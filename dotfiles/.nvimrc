@@ -34,6 +34,8 @@ Bundle 'christophermca/meta5'
 Bundle 'jceb/vim-orgmode'
 Bundle 'chrisbra/NrrwRgn'
 Bundle 'Shougo/unite.vim'
+Bundle 'godlygeek/tabular'
+"Bundle 'Shougo/deoplete.nvim'
 "Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 "Bundle 'gregsexton/gitv'
 
@@ -158,8 +160,8 @@ map tp :cp<CR>
 map tj <C-w>w
 map tk <C-w>w
 "Paste mode
-noremap <leader>p :set invpaste<CR>
-set pastetoggle=<leader>p
+"noremap <leader>p :set invpaste<CR>
+"set pastetoggle=<leader>p
 "Undo
 noremap <leader>u :UndotreeShow<CR>:UndotreeFocus<CR>
 
@@ -193,7 +195,9 @@ call textobj#user#plugin('comma', {
 
 "Unite
 let g:unite_source_history_yank_enable = 1
-nnoremap <leader>y :<C-u>Unite history/yank<CR>
+nnoremap <leader>p :Unite history/yank<CR>
+nno <leader>t :<C-u>Unite file_mru file_rec/async:! -start-insert -buffer-name=files<CR>
+nno <leader>cd :<C-u>Unite directory_mru directory -start-insert -buffer-name=cd -default-action=cd<CR>
 "nnoremap <leader>/ :Unite grep:.<cr>
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
