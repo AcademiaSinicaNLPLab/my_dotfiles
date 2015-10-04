@@ -3,7 +3,7 @@ if empty(glob('~/.nvim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PluginInstall
 endif
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'garbas/vim-snipmate'
@@ -85,6 +85,8 @@ augroup diffsetting
 set shiftwidth=4
 set tabstop=4
 set expandtab
+"Complete
+set completeopt=menu,noselect
 "spell
 augroup tex
     autocmd!
@@ -106,8 +108,9 @@ tnoremap <M-h> <Home>
 tnoremap <M-l> <End>
 tnoremap <C-j> <Down>
 tnoremap <C-k> <Up>
-tnoremap <C-w> <C-\><C-n><C-w>
 tnoremap <C-z> <C-v><C-z>
+tnoremap <C-h> <C-\><C-n>gT 
+tnoremap <C-l> <C-\><C-n>gt 
 augroup term
     autocmd!
     autocmd BufEnter * if @%[0:6]=='term://' | startinsert | endif
@@ -125,8 +128,8 @@ inoremap <c-a> <esc><c-w>
 vnoremap < <gv
 vnoremap > >gv
 "Moving around
-nnoremap <C-h> <Esc>:tabp<CR> 
-nnoremap <C-l> <Esc>:tabn<CR> 
+nnoremap <C-h> <Esc>gT
+nnoremap <C-l> <Esc>gt
 nnoremap j gj
 nnoremap k gk
 nnoremap <C-a> <C-w>
@@ -141,13 +144,6 @@ vnoremap <m-h> g0
 vnoremap <m-l> g$
 nnoremap <m-h> g0
 nnoremap <m-l> g$
-"Error console
-map to	:copen<Cr>
-map tc	:cclose<Cr>
-map tn :cn<CR>
-map tp :cp<CR>
-map tj <C-w>w
-map tk <C-w>w
 "Paste mode
 "noremap <leader>p :set invpaste<CR>
 "set pastetoggle=<leader>p
@@ -185,11 +181,12 @@ call textobj#user#plugin('comma', {
 "Unite
 let g:unite_source_history_yank_enable = 1
 nnoremap <leader>p :Unite history/yank<CR>
-nno <leader>t :<C-u>Unite file_mru file_rec/async:! -start-insert -buffer-name=files<CR>
-nno <leader>cd :<C-u>Unite directory_mru directory -start-insert -buffer-name=cd -default-action=cd<CR>
 "nnoremap <leader>/ :Unite grep:.<cr>
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
+
+"deoplete
+let g:deoplete#enable_at_startup = 1
 
 "vim-latex
 "set grepprg=grep\ -nH\ $*
@@ -219,6 +216,8 @@ nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
 "highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
 "
 
+"syntastic
+let g:syntastic_python_python_exec = '/usr/bin/python3'
 
 """ Functions
 fu! RestoreCursor()

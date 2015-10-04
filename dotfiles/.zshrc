@@ -59,7 +59,7 @@ export CUDA_HOME=/usr/local/cuda-7.0
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 
 addPath $CUDA_HOME/bin
 #NVIM
-addSubPath $HOME/.nvim/rplugin
+#addSubPath $HOME/.nvim/rplugin
 
 
 #nvim chpwd hook
