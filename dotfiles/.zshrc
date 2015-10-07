@@ -1,26 +1,59 @@
-ZGEN_HOME=$HOME/.zgen 
-if ! [[ -d $ZGEN_HOME ]]
+##ANTIGEN
+GEN_HOME=$HOME/.antigen
+if ! [[ -d $GEN_HOME ]]
 then
-    git clone git@github.com:tarjoilija/zgen.git $ZGEN_HOME
+git clone https://github.com/zsh-users/antigen.git $GEN_HOME
 fi
-source "$ZGEN_HOME/zgen.zsh"
-if ! zgen saved; then
-    echo "Creating a zgen save"
-    zgen oh-my-zsh
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/sudo
-    zgen oh-my-zsh plugins/zsh-history-substring-search
+source "$GEN_HOME/antigen.zsh"
 
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zsh-users/zsh-completions src
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle tarruda/zsh-autosuggestions
 
-    zgen oh-my-zsh themes/arrow
-    # save all to init script
-    zgen save
-fi
+##OPTIONS
+#completion
+zstyle ':completion:*' menu select
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+#history
+HISTFILE=~/.zsh_history
+SAVEHIST=10000
+HISTSIZE=10000
+setopt HIST_NO_STORE #history does not store history command
+setopt APPEND_HISTORY SHARE_HISTORY
+setopt HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS HIST_FIND_NO_DUPS HIST_SAVE_NO_DUPS  HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
+setopt EXTENDED_HISTORY # Save the time and how long a command ran
+#PS1
+host_prompt="%F{39}%m%"
+set_ps1() { 
+    directory_prompt=":%F{111}"`pwd | sed "s/\/\home\/mingo/~/g" | sed "s:\([^/]\)[^/]*/:\1/:g"`
+    PS1="$host_prompt $directory_prompt "
+}
+chpwd_functions+=( set_ps1 )
+set_ps1
+
+#alias
+autoload -U zmv
+alias mmv='noglob zmv -W'
+alias ls='ls --color'
+alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column -c 180 -s "  "; echo -e "\e[m"'
+
+##Plugins setting
+# zsh-history-substring-search
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey "^k" history-substring-search-up
+bindkey "^j" history-substring-search-down
+
+# zsh-autosuggestions
+zle-line-init() { zle autosuggest-start }
+zle -N zle-line-init
 
 
-DEFAULTPATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" 
+
+DEFAULTPATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game" 
 function addPath(){
     if (( $# == 0 ))
     then
@@ -48,19 +81,9 @@ addPath
 export CUDA_HOME=/usr/local/cuda-7.0 
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 
 addPath $CUDA_HOME/bin
-#NVIM
-#addSubPath $HOME/.nvim/rplugin
 
-
-#nvim chpwd hook
-neovim_autocd() {
-    [ $NVIM_LISTEN_ADDRESS ] && neovim-autocd.py
-}
-#chpwd_functions+=( neovim_autocd )
-
-#alias
-autoload -U zmv
-alias mmv='noglob zmv -W'
-
-#Finally, onmyzsh
-source $ZSH/oh-my-zsh.sh
+#NVIM_LISTEN_ADDRESS="/tmp/nvim"
+#nvim_autocd() {
+#    [ $NVIM_LISTEN_ADDRESS ] && $HOME/.nvim/bundle/nvim-autocd/rplugin/python/nvim-autocd.py
+#}
+#chpwd_functions+=( nvim_autocd )

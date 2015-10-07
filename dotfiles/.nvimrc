@@ -111,6 +111,8 @@ tnoremap <C-k> <Up>
 tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT 
 tnoremap <C-l> <C-\><C-n>gt 
+tnoremap <A-h> <Home>
+tnoremap <A-l> <End>
 augroup term
     autocmd!
     autocmd BufEnter * if @%[0:6]=='term://' | startinsert | endif
