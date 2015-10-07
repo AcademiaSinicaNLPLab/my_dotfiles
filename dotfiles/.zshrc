@@ -1,33 +1,23 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/mingo/.oh-my-zsh
+ZGEN_HOME=$HOME/.zgen 
+if ! [[ -d $ZGEN_HOME ]]
+then
+    git clone git@github.com:tarjoilija/zgen.git $ZGEN_HOME
+fi
+source "$ZGEN_HOME/zgen.zsh"
+if ! zgen saved; then
+    echo "Creating a zgen save"
+    zgen oh-my-zsh
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/zsh-history-substring-search
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-completions src
 
-#Completion
-HYPHEN_INSENSITIVE="true"
-ENABLE_CORRECTION="true" #Auto-correction
-
-export UPDATE_ZSH_DAYS=30 #Check update
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+    zgen oh-my-zsh themes/arrow
+    # save all to init script
+    zgen save
+fi
 
 
 DEFAULTPATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" 
