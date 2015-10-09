@@ -1,7 +1,6 @@
 if empty(glob('~/.nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+    silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PluginInstall
 endif
 call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
@@ -58,7 +57,6 @@ set wildmenu            " wild char completion menu
 set wildchar=<TAB>      " start wild expansion in the command line using <TAB>
 set wildignore=*/.git/*,*.o,*.class,*.pyc "ignore these files while expanding wild chars
 set autoread
-set relativenumber
 "Appearance
 set background=dark
 colorscheme ron
