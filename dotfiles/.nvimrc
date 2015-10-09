@@ -22,6 +22,7 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'Shougo/unite.vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'Shougo/deoplete.nvim'
+"Plug 'ipod825/nvim-autocd'
 ""Bundle 'Shougo/deoplete.nvim'
 ""Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 ""Bundle 'gregsexton/gitv'
@@ -57,6 +58,7 @@ set wildmenu            " wild char completion menu
 set wildchar=<TAB>      " start wild expansion in the command line using <TAB>
 set wildignore=*/.git/*,*.o,*.class,*.pyc "ignore these files while expanding wild chars
 set autoread
+set relativenumber
 "Appearance
 set background=dark
 colorscheme ron
@@ -111,8 +113,8 @@ tnoremap <C-k> <Up>
 tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT 
 tnoremap <C-l> <C-\><C-n>gt 
-tnoremap <A-h> <Home>
-tnoremap <A-l> <End>
+tnoremap <A-h> <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+tnoremap <A-l> <Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right>
 augroup term
     autocmd!
     autocmd BufEnter * if @%[0:6]=='term://' | startinsert | endif
@@ -139,6 +141,8 @@ nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
+vnoremap <C-k> dkP<S-v>
+vnoremap <C-j> djP<S-v>
 "Moving around (home,end)
 onoremap <M-h> g0
 onoremap <M-l> g$
@@ -157,9 +161,9 @@ noremap <leader>u :UndotreeShow<CR>:UndotreeFocus<CR>
 let g:ctrlp_map = '<c-o>'
 let g:ctrlp_root_markers = ['.git']
 let g:ctrlp_working_path_mode = 'ra'
-cnoreabbrev cpq CtrlPQuickfix
 cnoreabbrev cpt CtrlPTag
-cnoreabbrev cpb CtrlPBookmarkDir
+cnoreabbrev cpq CtrlPQuickfix
+
 
 " EasyGrep
 let g:EasyGrepInvertWholeWord = 1

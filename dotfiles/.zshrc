@@ -44,6 +44,8 @@ alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 bindkey "^k" history-substring-search-up
 bindkey "^j" history-substring-search-down
 
@@ -52,16 +54,10 @@ zle-line-init() { zle autosuggest-start }
 zle -N zle-line-init
 
 
-
-DEFAULTPATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game" 
-function addPath(){
-    if (( $# == 0 ))
-    then
-        export PATH=$DEFAULTPATH
-    else
-        export PATH=$1:$PATH
-    fi
-}
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game" 
+#Customize site path in ~/.zsh_site_env
+source $HOME/.zsh_site_env 2> /dev/null
+export PATH=$SITE_PATH:$PATH
 
 function addSubPath(){
     root=$1
@@ -73,15 +69,6 @@ function addSubPath(){
         fi
     done
 }
-
-
-#DEFAULT
-addPath
-#CUDA
-export CUDA_HOME=/usr/local/cuda-7.0 
-export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 
-addPath $CUDA_HOME/bin
-
 #NVIM_LISTEN_ADDRESS="/tmp/nvim"
 #nvim_autocd() {
 #    [ $NVIM_LISTEN_ADDRESS ] && $HOME/.nvim/bundle/nvim-autocd/rplugin/python/nvim-autocd.py
