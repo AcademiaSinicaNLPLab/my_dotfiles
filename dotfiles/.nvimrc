@@ -1,3 +1,4 @@
+"Plug
 if empty(glob('~/.nvim/autoload/plug.vim'))
     silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -10,7 +11,7 @@ Plug 'honza/vim-snippets'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'vim-scripts/tlib'
 Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/EasyGrep'
 Plug 'bling/vim-airline'
@@ -35,7 +36,7 @@ augroup reload_vimrc
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
-nnoremap <Leader>v :so ~/.vimrc<CR>
+nnoremap <Leader>v :so ~/.vimrc<CR> 
 
 "Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:200,n~/.nviminfo
@@ -111,14 +112,13 @@ tnoremap <C-k> <Up>
 tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT 
 tnoremap <C-l> <C-\><C-n>gt 
-tnoremap <A-h> <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-tnoremap <A-l> <Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right><Right>
+"make alt binding work in terminal
+tnoremap <A-h> h 
+tnoremap <A-l> l
 augroup term
     autocmd!
     autocmd BufEnter * if @%[0:6]=='term://' | startinsert | endif
 augroup End
-
-
 
 """ KEY MAPPING
 "Mode changing
