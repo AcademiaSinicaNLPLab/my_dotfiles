@@ -10,8 +10,14 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle tarruda/zsh-autosuggestions
+antigen bundle ipod825/zsh-dirhistory
+
+##Bindings
+bindkey "^[[1;5D" emacs-backward-word
+bindkey "^[[1;5C" emacs-forward-word
 
 ##OPTIONS
+WORDCHARS=${WORDCHARS/\/} #treat \ as word
 #completion
 zstyle ':completion:*' menu select
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -49,6 +55,10 @@ bindkey '^[[B' history-substring-search-down
 bindkey "^k" history-substring-search-up
 bindkey "^j" history-substring-search-down
 
+# zsh-dirhistory
+bindkey "^[[1;3D" dirhistory_zle_dirhistory_back
+bindkey "^[[1;3C" dirhistory_zle_dirhistory_future
+
 # zsh-autosuggestions
 zle-line-init() { zle autosuggest-start }
 zle -N zle-line-init
@@ -74,3 +84,4 @@ function addSubPath(){
 #    [ $NVIM_LISTEN_ADDRESS ] && $HOME/.nvim/bundle/nvim-autocd/rplugin/python/nvim-autocd.py
 #}
 #chpwd_functions+=( nvim_autocd )
+#
