@@ -102,8 +102,7 @@ let g:terminal_scrollback_buffer_size=100000
 nnoremap <leader>t :terminal zsh<CR>
 nnoremap <M-t> <C-w>v<C-w>l:terminal zsh<CR>
 tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
-tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
-tnoremap <C-a> <C-\><C-n><C-w>
+tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
 tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT 
 tnoremap <C-l> <C-\><C-n>gt 

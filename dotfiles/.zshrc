@@ -13,8 +13,33 @@ antigen bundle ipod825/zsh-dirhistory
 
 ##OPTIONS
 
+
 #General
 WORDCHARS=${WORDCHARS/\/} #treat \ as word
+
+##Bindings
+bindkey -v
+bindkey -M viins jk vi-cmd-mode 
+bindkey -M vicmd "k" history-substring-search-up
+bindkey -M vicmd "j" history-substring-search-down
+bindkey "^k" history-substring-search-up
+bindkey "^j" history-substring-search-down
+bindkey "^[h" beginning-of-line
+bindkey "^[l" end-of-line
+#bindkey "^b" dirhistory_zle_dirhistory_back
+#bindkey "^f" dirhistory_zle_dirhistory_future
+
+# zle
+function zle-line-init zle-keymap-select {
+    set_ps1
+    zle reset-prompt
+}
+zle-line-init() { zle autosuggest-start }
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+#zle -N zle-line-init
 
 #completion
 zstyle ':completion:*' menu select
@@ -37,35 +62,20 @@ alias ls='ls --color'
 alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column -c 180 -s "  "; echo -e "\e[m"'
 
 #PS1
-host_prompt="%F{39}%m%"
+host_prompt="%F{39}%m"
 set_ps1() { 
     directory_prompt=":%F{111}"`pwd | sed "s/\/\home\/mingo/~/g" | sed "s:\([^/]\)[^/]*/:\1/:g"`
-    PS1="$host_prompt $directory_prompt "
+    VI_MODE="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+    PS1="$VI_MODE$host_prompt $directory_prompt "
 }
-chpwd_functions+=( set_ps1 )
-set_ps1
+set_ps1_chpwd() { KEYMAP="viins" && set_ps1 }
+chpwd_functions+=( set_ps1_chpwd )
+set_ps1_chpwd
 
 #Path
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game" 
 source $HOME/.zsh_site_env 2> /dev/null #Customize site path in ~/.zsh_site_env
 export PATH=$SITE_PATH:$PATH
-
-##Bindings
-bindkey "^[h" beginning-of-line
-bindkey "^[l" end-of-line 
-bindkey "^p" emacs-backward-word
-bindkey "^n" emacs-forward-word
-
-##Plugins setting
-# zsh-history-substring-search
-bindkey "^k" history-substring-search-up
-bindkey "^j" history-substring-search-down
-# zsh-dirhistory
-bindkey "^b" dirhistory_zle_dirhistory_back
-bindkey "^f" dirhistory_zle_dirhistory_future
-# zsh-autosuggestions
-zle-line-init() { zle autosuggest-start }
-zle -N zle-line-init
 
 
 
