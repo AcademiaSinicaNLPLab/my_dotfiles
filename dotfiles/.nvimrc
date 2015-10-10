@@ -11,7 +11,7 @@ Plug 'honza/vim-snippets'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'vim-scripts/tlib'
 Plug 'scrooloose/syntastic'
-"Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/EasyGrep'
 Plug 'bling/vim-airline'
@@ -104,11 +104,6 @@ nnoremap <M-t> <C-w>v<C-w>l:terminal zsh<CR>
 tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap <C-a> <C-\><C-n><C-w>
-tnoremap <C-l> <Right>
-tnoremap <M-h> <Home>
-tnoremap <M-l> <End>
-tnoremap <C-j> <Down>
-tnoremap <C-k> <Up>
 tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT 
 tnoremap <C-l> <C-\><C-n>gt 
@@ -221,7 +216,7 @@ let g:deoplete#enable_at_startup = 1
 "
 
 "syntastic
-let g:syntastic_python_python_exec = '/usr/bin/python3'
+"let g:syntastic_python_python_exec = '/usr/bin/python3'
 
 """ Functions
 fu! RestoreCursor()
