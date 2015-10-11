@@ -12,16 +12,16 @@ antigen bundle tarruda/zsh-autosuggestions
 antigen bundle ipod825/zsh-dirhistory
 
 ##OPTIONS
-
-
 #General
+autoload -U zmv
 WORDCHARS=${WORDCHARS/\/} #treat \ as word
 
-##Bindings
-bindkey -v
+#Bindings
 bindkey -M viins jk vi-cmd-mode 
 bindkey -M vicmd "k" history-substring-search-up
 bindkey -M vicmd "j" history-substring-search-down
+bindkey -M vicmd "^[h" beginning-of-line
+bindkey -M vicmd "^[l" end-of-line
 bindkey "^k" history-substring-search-up
 bindkey "^j" history-substring-search-down
 bindkey "^[h" beginning-of-line
@@ -29,17 +29,9 @@ bindkey "^[l" end-of-line
 #bindkey "^b" dirhistory_zle_dirhistory_back
 #bindkey "^f" dirhistory_zle_dirhistory_future
 
-# zle
-function zle-line-init zle-keymap-select {
-    set_ps1
-    zle reset-prompt
-}
+#zle
 zle-line-init() { zle autosuggest-start }
-
 zle -N zle-line-init
-zle -N zle-keymap-select
-
-#zle -N zle-line-init
 
 #completion
 zstyle ':completion:*' menu select
@@ -56,7 +48,6 @@ setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 setopt EXTENDED_HISTORY # Save the time and how long a command ran
 
 #alias
-autoload -U zmv
 alias mmv='noglob zmv -W'
 alias ls='ls --color'
 alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column -c 180 -s "  "; echo -e "\e[m"'
@@ -65,7 +56,7 @@ alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column
 host_prompt="%F{39}%m"
 set_ps1() { 
     directory_prompt=":%F{111}"`pwd | sed "s/\/\home\/mingo/~/g" | sed "s:\([^/]\)[^/]*/:\1/:g"`
-    VI_MODE="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+    #VI_MODE="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
     PS1="$VI_MODE$host_prompt $directory_prompt "
 }
 set_ps1_chpwd() { KEYMAP="viins" && set_ps1 }
