@@ -26,6 +26,10 @@ bindkey "^k" history-substring-search-up
 bindkey "^j" history-substring-search-down
 bindkey "^[h" beginning-of-line
 bindkey "^[l" end-of-line
+bindkey "^_" backward-delete-char #actually this is ^?
+bindkey "^[_" forward-delete-char
+
+
 #bindkey "^b" dirhistory_zle_dirhistory_back
 #bindkey "^f" dirhistory_zle_dirhistory_future
 
