@@ -1,14 +1,12 @@
 "3.9 (created: 2015/02/15 15:49:05)
 
-imap jk <Esc>
+inoremap jk <Esc>
 inoremap <C-a> <C-Home><C-S-End>
-map ; :
 map h <A-Left>
 map l <A-Right>
 map <C-h> :tabp<Return>
 map <C-l> :tabn<Return>
-noremap j 5j
-noremap k 5k
-source! /home/mingo/.vimperatorrc.local
+noremap j 5<Down>
+noremap k 5<Up>
 
 " vim: set ft=vimperator:
