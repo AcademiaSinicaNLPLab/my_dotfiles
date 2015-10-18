@@ -1,41 +1,31 @@
-" vundle
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-  let iCanHazVundle=0
+"Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-
-" My Bundles here:
-"Git
-"Bundle 'gregsexton/gitv'
-Bundle 'tpope/vim-fugitive'
-
-"Completion
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'vim-scripts/tlib'
-"syntax check
-Bundle 'scrooloose/syntastic'
-"utils
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'vim-scripts/YankRing.vim'
-Bundle 'vim-scripts/EasyGrep'
-Bundle 'mbbill/undotree'
-"Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
+call plug#begin('~/.vim/bundle')
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'vim-scripts/tlib'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
+Plug 'vim-scripts/EasyGrep'
+Plug 'bling/vim-airline'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'kana/vim-textobj-user'
+Plug 'chrisbra/NrrwRgn'
+Plug 'Shougo/unite.vim'
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+"Plug 'ipod825/vim-autocd'
+""Bundle 'Shougo/deoplete.vim'
+""Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
+""Bundle 'gregsexton/gitv'
+call plug#end()
 
 " auto reload vimrc when editing it
 augroup reload_vimrc
