@@ -59,7 +59,8 @@ alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column
 #PS1
 host_prompt="%F{39}%m"
 set_ps1() { 
-    directory_prompt=":%F{111}"`pwd | sed "s/\/\home\/mingo/~/g" | sed "s:\([^/]\)[^/]*/:\1/:g"`
+    sedcmd="s/\/\home\/$USER/~/g"
+    directory_prompt=":%F{111}"`pwd | sed $sedcmd | sed "s:\([^/]\)[^/]*/:\1/:g"`
     #VI_MODE="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
     PS1="$VI_MODE$host_prompt $directory_prompt "
 }
