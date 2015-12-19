@@ -24,6 +24,8 @@ bindkey -M vicmd "^[h" beginning-of-line
 bindkey -M vicmd "^[l" end-of-line
 bindkey "^k" history-substring-search-up
 bindkey "^j" history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey "^[h" beginning-of-line
 bindkey "^[l" end-of-line
 bindkey "^_" backward-delete-char #actually this is ^?

@@ -1,7 +1,6 @@
 "Plug
 if empty(glob('~/.nvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
@@ -23,6 +22,7 @@ Plug 'Shougo/unite.vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'lervag/vimtex'
 Plug 'kchmck/vim-coffee-script'
+Plug 'scrooloose/nerdtree'
 "Plug 'Shougo/deoplete.nvim'
 "Plug 'ipod825/nvim-autocd'
 ""Bundle 'Shougo/deoplete.nvim'
@@ -36,7 +36,7 @@ call plug#end()
 " auto reload vimrc when editing it
 augroup reload_vimrc
     autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    autocmd BufWritePost *vimrc source %:p
 augroup END
 nnoremap <Leader>v :so ~/.vimrc<CR> 
 
@@ -47,19 +47,24 @@ augroup nvimrc
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 augroup End
 
+augroup autocd
+    autocmd BufEnter * silent! lcd %:p:h
+augroup End
+
 """ GENERAL SETTINGS
 filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
 filetype plugin on      " Enable filetype-specific plugins
 set hidden              " enable you to edit other buffer without saving current buffer
-set mouse=
+set mouse=n
 set copyindent          " copy the previous indentation on autoindenting
 set noignorecase        " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,case-sensitive otherwise
 set wildmenu            " wild char completion menu
 set wildchar=<TAB>      " start wild expansion in the command line using <TAB>
-set wildignore=*/.git/*,*.o,*.class,*.pyc "ignore these files while expanding wild chars
+set wildignore=*/.git/*,*.o,*.class,*.pyc,*/corpus/* "ignore these files while expanding wild chars
 set autoread
+set cursorline
 "Appearance
 set background=dark
 colorscheme ron
@@ -107,14 +112,16 @@ tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
 tnoremap <C-z> <C-v><C-z>
-tnoremap <C-h> <C-\><C-n>gT 
-tnoremap <C-l> <C-\><C-n>gt 
+tnoremap <C-h> <C-\><C-n>gT
+tnoremap <C-l> <C-\><C-n>gt
 "make alt binding work in terminal
 tnoremap <A-h> h
 tnoremap <A-l> l
+tnoremap <C-k> <Up>
+tnoremap <C-j> <Down>
 augroup term
     autocmd!
-    autocmd BufEnter * if @%[0:6]=='term://' | startinsert | endif
+    autocmd BufWinEnter,WinEnter term://* startinsert
 augroup End
 
 """ KEY MAPPING
@@ -145,6 +152,8 @@ vnoremap <m-h> g0
 vnoremap <m-l> g$
 nnoremap <m-h> g0
 nnoremap <m-l> g$
+inoremap <M-h> <Esc>g0i
+inoremap <M-l> <Esc>g$i
 "Paste mode
 "noremap <leader>p :set invpaste<CR>
 "set pastetoggle=<leader>p
@@ -189,6 +198,10 @@ nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
 "deoplete
 let g:deoplete#enable_at_startup = 1
 
+"NERDTree
+let  g:NERDTreeMapActivateNode='<Space>'
+let  g:NERDTreeMapChdir='<Cr>'
+ 
 "vim-latex
 "set grepprg=grep\ -nH\ $*
 "let g:Tex_DefaultTargetFormat = 'pdf'
