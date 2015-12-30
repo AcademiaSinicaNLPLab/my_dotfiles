@@ -23,6 +23,7 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'lervag/vimtex'
 Plug 'kchmck/vim-coffee-script'
 Plug 'scrooloose/nerdtree'
+Plug 'chrisbra/csv.vim'
 "Plug 'Shougo/deoplete.nvim'
 "Plug 'ipod825/nvim-autocd'
 ""Bundle 'Shougo/deoplete.nvim'
@@ -56,7 +57,7 @@ filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
 filetype plugin on      " Enable filetype-specific plugins
 set hidden              " enable you to edit other buffer without saving current buffer
-set mouse=n
+set mouse=
 set copyindent          " copy the previous indentation on autoindenting
 set noignorecase        " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,case-sensitive otherwise
@@ -201,6 +202,7 @@ let g:deoplete#enable_at_startup = 1
 "NERDTree
 let  g:NERDTreeMapActivateNode='<Space>'
 let  g:NERDTreeMapChdir='<Cr>'
+let NERDTreeIgnore = ['\.pyc$']
  
 "vim-latex
 "set grepprg=grep\ -nH\ $*

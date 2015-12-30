@@ -24,8 +24,8 @@ bindkey -M vicmd "^[h" beginning-of-line
 bindkey -M vicmd "^[l" end-of-line
 bindkey "^k" history-substring-search-up
 bindkey "^j" history-substring-search-down
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 bindkey "^[h" beginning-of-line
 bindkey "^[l" end-of-line
 bindkey "^_" backward-delete-char #actually this is ^?
@@ -74,6 +74,9 @@ set_ps1_chpwd
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game" 
 source $HOME/.zsh_site_env 2> /dev/null #Customize site path in ~/.zsh_site_env
 export PATH=$SITE_PATH:$PATH
+
+#autosuggest
+AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=245'
 
 
 
