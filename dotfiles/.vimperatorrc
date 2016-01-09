@@ -8,5 +8,6 @@ map <C-h> :tabp<Return>
 map <C-l> :tabn<Return>
 noremap j 5<Down>
 noremap k 5<Up>
+noremap ; :
 
 " vim: set ft=vimperator:
