@@ -1,7 +1,4 @@
-"Plug
-if empty(glob('~/.nvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-endif
+"Plug Please run if not installed: curl -fLo ~/.nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
@@ -9,7 +6,7 @@ Plug 'SirVer/ultisnips'
 Plug 'ipod825/vim-snippets'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'vim-scripts/tlib'
-Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/EasyGrep'
@@ -18,16 +15,15 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'kana/vim-textobj-user'
 Plug 'chrisbra/NrrwRgn'
-Plug 'Shougo/unite.vim'
-Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'lervag/vimtex'
 Plug 'kchmck/vim-coffee-script'
 Plug 'scrooloose/nerdtree'
 Plug 'chrisbra/csv.vim'
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 "Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/unite.vim'
 "Plug 'ipod825/nvim-autocd'
-""Bundle 'Shougo/deoplete.nvim'
-""Bundle 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
+"Plug 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
 ""Bundle 'gregsexton/gitv'
 call plug#end()
 
@@ -49,7 +45,7 @@ augroup nvimrc
 augroup End
 
 augroup autocd
-    autocmd BufEnter * silent! lcd %:p:h
+    autocmd BufEnter *.py,*.csv silent! lcd %:p:h
 augroup End
 
 """ GENERAL SETTINGS
@@ -203,6 +199,9 @@ let g:deoplete#enable_at_startup = 1
 let  g:NERDTreeMapActivateNode='<Space>'
 let  g:NERDTreeMapChdir='<Cr>'
 let NERDTreeIgnore = ['\.pyc$']
+
+"airline
+let g:airline_theme='wombat'
  
 "vim-latex
 "set grepprg=grep\ -nH\ $*
@@ -232,15 +231,26 @@ let NERDTreeIgnore = ['\.pyc$']
 "highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
 "
 
-"syntastic
-"let g:syntastic_python_python_exec = '/usr/bin/python3'
+"neomake
+augroup NEOMAKE_CHECK
+    autocmd!
+    autocmd BufWritePost * Neomake
+augroup End
+let g:neomake_error_sign = {
+    \ 'text': 'E>',
+    \ 'texthl': 'ErrorMsg',
+    \ }
+let g:neomake_warning_sign = {
+    \ 'text': 'W>',
+    \ 'texthl': 'WarningMsg',
+    \ }
+
 
 """ Functions
 fu! RestoreCursor()
     let l=search('\%' . virtcol('.') . 'v\S', 'bW')
     call cursor(l,0)
 endfunction
-
 
 """To be written into pluggin
 
