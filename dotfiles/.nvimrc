@@ -3,7 +3,7 @@ call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
-Plug 'ipod825/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'vim-scripts/tlib'
 Plug 'benekastah/neomake'
@@ -38,7 +38,7 @@ augroup nvimrc
 augroup End
 
 augroup autocd
-    autocmd BufEnter *.py,*.csv silent! lcd %:p:h
+    autocmd BufEnter *.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
 augroup End
 
 """ GENERAL SETTINGS
@@ -178,6 +178,8 @@ let g:airline_theme='wombat'
 
 "ultisnips
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsListSnippets = '<C-Tab>'
 
 "neomake
 augroup NEOMAKE_CHECK
@@ -193,33 +195,6 @@ let g:neomake_warning_sign = {
     \ 'texthl': 'WarningMsg',
     \ }
  
-"vim-latex
-"set grepprg=grep\ -nH\ $*
-"let g:Tex_DefaultTargetFormat = 'pdf'
-"let g:Tex_CompileRule_dvi = 'latex --interaction=nonstopmode $*'
-"let g:Tex_CompileRule_ps = 'dvips -Ppdf -o $*.ps $*.dvi'
-"let g:Tex_CompileRule_pdf = 'ps2pdf $*.ps'
-"let g:Tex_DefaultTargetFormat='pdf'
-"let g:Tex_MultipleCompileFormats='dvi,pdf'
-"let g:Tex_UseMakefile=0
-"let g:Tex_ViewRule_pdf = 'qpdfview'
-"let g:Tex_Menus=0
-"let g:Tex_FoldedCommands='ctable'
-" zg to add word to word list
-" zw to reverse
-" zug to remove word from word list
-" z= to get llist of probabilities
-"highlight clear SpellBad
-"highlight Spellbad term=standout ctermfg=1 term=underline cterm=underline
-"highlight clear SpellCap
-"highlight Spellcap term=underline cterm=underline
-"highlight clear SpareRare
-"highlight SpellLocale term=underline cterm=underline
-"highlight clear SpareLocale
-"highlight SpellLocale term=underline cterm=underline
-"highlight Pmenu term=standout  ctermfg=255  ctermbg=8
-"highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
-"
 
 
 
@@ -256,3 +231,30 @@ function! BufferGC()
     endfor
 endfunction
 
+"vim-latex
+"set grepprg=grep\ -nH\ $*
+"let g:Tex_DefaultTargetFormat = 'pdf'
+"let g:Tex_CompileRule_dvi = 'latex --interaction=nonstopmode $*'
+"let g:Tex_CompileRule_ps = 'dvips -Ppdf -o $*.ps $*.dvi'
+"let g:Tex_CompileRule_pdf = 'ps2pdf $*.ps'
+"let g:Tex_DefaultTargetFormat='pdf'
+"let g:Tex_MultipleCompileFormats='dvi,pdf'
+"let g:Tex_UseMakefile=0
+"let g:Tex_ViewRule_pdf = 'qpdfview'
+"let g:Tex_Menus=0
+"let g:Tex_FoldedCommands='ctable'
+" zg to add word to word list
+" zw to reverse
+" zug to remove word from word list
+" z= to get llist of probabilities
+"highlight clear SpellBad
+"highlight Spellbad term=standout ctermfg=1 term=underline cterm=underline
+"highlight clear SpellCap
+"highlight Spellcap term=underline cterm=underline
+"highlight clear SpareRare
+"highlight SpellLocale term=underline cterm=underline
+"highlight clear SpareLocale
+"highlight SpellLocale term=underline cterm=underline
+"highlight Pmenu term=standout  ctermfg=255  ctermbg=8
+"highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
+"
