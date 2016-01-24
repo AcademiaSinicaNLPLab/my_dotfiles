@@ -7,27 +7,20 @@ Plug 'ipod825/vim-snippets'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'vim-scripts/tlib'
 Plug 'benekastah/neomake'
-Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/EasyGrep'
 Plug 'bling/vim-airline'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'kana/vim-textobj-user'
 Plug 'chrisbra/NrrwRgn'
 Plug 'lervag/vimtex'
 Plug 'kchmck/vim-coffee-script'
 Plug 'scrooloose/nerdtree'
 Plug 'chrisbra/csv.vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'maxbrunsfeld/vim-yankstack'
 "Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/unite.vim'
-"Plug 'ipod825/nvim-autocd'
-"Plug 'vim-scripts/LaTeX-Suite-aka-Vim-LaTeX'
-""Bundle 'gregsexton/gitv'
+
 call plug#end()
-
-
 
 """ VIM
 " auto reload vimrc when editing it
@@ -112,8 +105,8 @@ tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT
 tnoremap <C-l> <C-\><C-n>gt
 "make alt binding work in terminal
-tnoremap <A-h> h
-tnoremap <A-l> l
+tnoremap <M-h> h
+tnoremap <M-l> l
 tnoremap <C-k> <Up>
 tnoremap <C-j> <Down>
 augroup term
@@ -151,11 +144,12 @@ nnoremap <m-h> g0
 nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
-"Paste mode
-"noremap <leader>p :set invpaste<CR>
-"set pastetoggle=<leader>p
-"Undo
-noremap <leader>u :UndotreeShow<CR>:UndotreeFocus<CR>
+"utils
+nmap <leader>sc vawlxea,<Esc>p
+"Paste
+nmap <c-p> <Plug>yankstack_substitute_older_paste
+nmap <c-n> <Plug>yankstack_substitute_newer_paste
+set pastetoggle=<leader>p
 
 """ PLUGIN SETTINGS
 "Ctrlp
@@ -171,27 +165,6 @@ let g:EasyGrepInvertWholeWord = 1
 let g:EasyGrepMode = 2
 let g:EasyGrepReplaceWindowMode = 2
 
-" Surround
-nmap <leader>0 ysiw)
-nmap <leader>] ysiw]
-nmap <leader>' ysiw'
-nmap <leader>" ysiw"
-
-"vim-textobj-utils
-call textobj#user#plugin('comma', {
-\   'comma':{
-\      'pattern': '[^,]\+,',
-\      'select': ['ac', 'ic'],
-\},
-\})
-
-"Unite
-let g:unite_source_history_yank_enable = 1
-nnoremap <leader>p :Unite history/yank<CR>
-"nnoremap <leader>/ :Unite grep:.<cr>
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
-
 "deoplete
 let g:deoplete#enable_at_startup = 1
 
@@ -202,6 +175,23 @@ let NERDTreeIgnore = ['\.pyc$']
 
 "airline
 let g:airline_theme='wombat'
+
+"ultisnips
+let g:UltiSnipsEditSplit="vertical"
+
+"neomake
+augroup NEOMAKE_CHECK
+    autocmd!
+    autocmd BufWritePost * Neomake
+augroup End
+let g:neomake_error_sign = {
+    \ 'text': 'E>',
+    \ 'texthl': 'ErrorMsg',
+    \ }
+let g:neomake_warning_sign = {
+    \ 'text': 'W>',
+    \ 'texthl': 'WarningMsg',
+    \ }
  
 "vim-latex
 "set grepprg=grep\ -nH\ $*
@@ -231,19 +221,6 @@ let g:airline_theme='wombat'
 "highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
 "
 
-"neomake
-augroup NEOMAKE_CHECK
-    autocmd!
-    autocmd BufWritePost * Neomake
-augroup End
-let g:neomake_error_sign = {
-    \ 'text': 'E>',
-    \ 'texthl': 'ErrorMsg',
-    \ }
-let g:neomake_warning_sign = {
-    \ 'text': 'W>',
-    \ 'texthl': 'WarningMsg',
-    \ }
 
 
 """ Functions
