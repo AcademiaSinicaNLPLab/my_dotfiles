@@ -18,6 +18,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'chrisbra/csv.vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'rking/ag.vim'
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
@@ -62,6 +63,7 @@ set showmatch		    " Cursor shows matching ) and }
 syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
+highlight SpellBad ctermbg=88
 set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
@@ -88,15 +90,14 @@ set completeopt=menu,noselect
 "spell
 augroup tex
     autocmd!
-    autocmd FileType tex set spelllang=en_us
-    autocmd FileType tex set spell
+    autocmd FileType tex setlocal spell
     autocmd FileType tex vmap j gj
     autocmd FileType tex vmap k gk
 augroup End
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
-nnoremap <leader>t :terminal zsh<CR>
+nnoremap <leader>t :tabe term://zsh<CR>
 nnoremap <M-t> <C-w>v<C-w>l:terminal zsh<CR>
 tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
@@ -194,6 +195,9 @@ let g:neomake_warning_sign = {
     \ 'text': 'W>',
     \ 'texthl': 'WarningMsg',
     \ }
+
+"vimtex
+let g:vimtex_view_general_viewer = 'evince'
  
 
 
@@ -231,30 +235,3 @@ function! BufferGC()
     endfor
 endfunction
 
-"vim-latex
-"set grepprg=grep\ -nH\ $*
-"let g:Tex_DefaultTargetFormat = 'pdf'
-"let g:Tex_CompileRule_dvi = 'latex --interaction=nonstopmode $*'
-"let g:Tex_CompileRule_ps = 'dvips -Ppdf -o $*.ps $*.dvi'
-"let g:Tex_CompileRule_pdf = 'ps2pdf $*.ps'
-"let g:Tex_DefaultTargetFormat='pdf'
-"let g:Tex_MultipleCompileFormats='dvi,pdf'
-"let g:Tex_UseMakefile=0
-"let g:Tex_ViewRule_pdf = 'qpdfview'
-"let g:Tex_Menus=0
-"let g:Tex_FoldedCommands='ctable'
-" zg to add word to word list
-" zw to reverse
-" zug to remove word from word list
-" z= to get llist of probabilities
-"highlight clear SpellBad
-"highlight Spellbad term=standout ctermfg=1 term=underline cterm=underline
-"highlight clear SpellCap
-"highlight Spellcap term=underline cterm=underline
-"highlight clear SpareRare
-"highlight SpellLocale term=underline cterm=underline
-"highlight clear SpareLocale
-"highlight SpellLocale term=underline cterm=underline
-"highlight Pmenu term=standout  ctermfg=255  ctermbg=8
-"highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
-"
