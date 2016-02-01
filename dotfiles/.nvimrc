@@ -34,7 +34,7 @@ filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
 filetype plugin on      " Enable filetype-specific plugins
 set hidden              " enable you to edit other buffer without saving current buffer
-set mouse=
+set mouse=a
 set copyindent          " copy the previous indentation on autoindenting
 set noignorecase        " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,case-sensitive otherwise
@@ -124,6 +124,7 @@ inoremap <M-l> <Esc>g$i
 "Paste
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
+vnoremap <leader>p y<Esc>:tabe temp<Cr>P:setlocal mouse=<Cr>
 
 
 augroup SETTINGS
@@ -140,15 +141,19 @@ augroup SETTINGS
     autocmd BufEnter *.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
     " autoreload vimdr
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
+    autocmd BufEnter temp setlocal buftype=nofile noswapfile bufhidden=delete
+
     "tex
     autocmd FileType tex setlocal spell
     autocmd FileType tex vmap j gj
     autocmd FileType tex vmap k gk
     "Rainbowparenthesis
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+    if exists("RainbowParenthesesToggle")
+        autocmd VimEnter * RainbowParenthesesToggle
+        autocmd Syntax * RainbowParenthesesLoadRound
+        autocmd Syntax * RainbowParenthesesLoadSquare
+        autocmd Syntax * RainbowParenthesesLoadBraces
+    endif
 augroup END
 
 
