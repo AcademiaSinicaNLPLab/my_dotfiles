@@ -4,21 +4,19 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'vim-scripts/tlib'
-Plug 'benekastah/neomake'
 Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/EasyGrep'
-Plug 'bling/vim-airline'
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'chrisbra/NrrwRgn'
+Plug 'rking/ag.vim'
+Plug 'benekastah/neomake'
 Plug 'lervag/vimtex'
 Plug 'kchmck/vim-coffee-script'
-Plug 'scrooloose/nerdtree'
 Plug 'chrisbra/csv.vim'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'rking/ag.vim'
+Plug 'bling/vim-airline'
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
@@ -145,11 +143,9 @@ nnoremap <m-h> g0
 nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
-"utils
-nmap <leader>sc vawlxea,<Esc>p
 "Paste
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-n> <Plug>yankstack_substitute_newer_paste
+nnoremap <c-p> <Plug>yankstack_substitute_older_paste
+nnoremap <c-n> <Plug>yankstack_substitute_newer_paste
 set pastetoggle=<leader>p
 
 """ PLUGIN SETTINGS
