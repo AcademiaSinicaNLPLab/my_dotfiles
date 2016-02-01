@@ -6,6 +6,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/EasyGrep'
 Plug 'rking/ag.vim'
 Plug 'benekastah/neomake'
@@ -19,14 +20,14 @@ Plug 'vim-scripts/Mouse-Toggle'
 Plug 'bling/vim-airline'
 Plug 'reedes/vim-lexical'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdcommenter'
 Plug 'mbbill/undotree'
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
-
 
 """ GENERAL SETTINGS
 filetype on             " Enable filetype detection
@@ -143,6 +144,11 @@ augroup SETTINGS
     autocmd FileType tex setlocal spell
     autocmd FileType tex vmap j gj
     autocmd FileType tex vmap k gk
+    "Rainbowparenthesis
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
 augroup END
 
 
@@ -159,7 +165,7 @@ let g:EasyGrepReplaceWindowMode = 2
 "deoplete
 let g:deoplete#enable_at_startup = 1
 
-"NERDTree
+"nerdtree
 let  g:NERDTreeMapActivateNode='<Space>'
 let  g:NERDTreeMapChdir='<Cr>'
 let NERDTreeIgnore = ['\.pyc$']
@@ -227,4 +233,3 @@ function! BufferGC()
         endif
     endfor
 endfunction
-
