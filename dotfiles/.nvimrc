@@ -5,7 +5,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/EasyGrep'
 Plug 'rking/ag.vim'
@@ -21,6 +20,7 @@ Plug 'vim-scripts/Mouse-Toggle'
 Plug 'bling/vim-airline'
 Plug 'reedes/vim-lexical'
 Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "Plug 'Shougo/deoplete.nvim'
 
@@ -151,15 +151,10 @@ inoremap <M-l> <Esc>g$i
 "Paste
 nnoremap <c-p> <Plug>yankstack_substitute_older_paste
 nnoremap <c-n> <Plug>yankstack_substitute_newer_paste
-set pastetoggle=<leader>p
 
 """ PLUGIN SETTINGS
-"Ctrlp
-let g:ctrlp_map = '<c-o>'
-let g:ctrlp_root_markers = ['.git']
-let g:ctrlp_working_path_mode = 'ra'
-cnoreabbrev cpt CtrlPTag
-cnoreabbrev cpq CtrlPQuickfix
+"fzf
+"
 
 
 " EasyGrep
@@ -198,8 +193,6 @@ let g:neomake_warning_sign = {
 
 "vimtex
 let g:vimtex_view_general_viewer = 'evince'
- 
-
 
 
 """ Functions

@@ -97,4 +97,4 @@ function addSubPath(){
 #chpwd_functions+=( nvim_autocd )
 #
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
