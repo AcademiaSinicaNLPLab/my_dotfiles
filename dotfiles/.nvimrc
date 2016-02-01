@@ -15,35 +15,18 @@ Plug 'chrisbra/csv.vim'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'vim-scripts/Mouse-Toggle'
 Plug 'bling/vim-airline'
 Plug 'reedes/vim-lexical'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
+Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'maxbrunsfeld/vim-yankstack'
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
 
-""" VIM
-" auto reload vimrc when editing it
-augroup reload_vimrc
-    autocmd!
-    autocmd BufWritePost *vimrc source %:p
-augroup END
-nnoremap <Leader>v :so ~/.vimrc<CR> 
-
-"Restore cursor to file position in previous editing session
-set viminfo='10,\"100,:200,n~/.nviminfo
-augroup nvimrc
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-augroup End
-
-augroup autocd
-    autocmd BufEnter *.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
-augroup End
 
 """ GENERAL SETTINGS
 filetype on             " Enable filetype detection
@@ -56,9 +39,11 @@ set noignorecase        " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,case-sensitive otherwise
 set wildmenu            " wild char completion menu
 set wildchar=<TAB>      " start wild expansion in the command line using <TAB>
+set viminfo='10,\"100,:200,n~/.nviminfo "Restore cursor to file position in previous editing session
 set wildignore=*/.git/*,*.o,*.class,*.pyc,*/corpus/* "ignore these files while expanding wild chars
 set autoread
 set cursorline
+set virtualedit=block
 "Appearance
 set background=dark
 colorscheme ron
@@ -72,7 +57,7 @@ set winminwidth=0
 set nobackup            " no *~ backup files
 "Fold
 set foldmethod=indent
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+noremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 "Timeout
 set timeoutlen=500
@@ -80,10 +65,6 @@ set ttimeoutlen=0
 "Diff
 set diffopt+=vertical
 cnoreabbrev dp diffput
-augroup diffsetting
-    autocmd!
-    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
-augroup diffsetting
 "Tab
 set shiftwidth=4
 set tabstop=4
@@ -91,12 +72,6 @@ set expandtab
 "Complete
 set completeopt=menu,noselect
 "spell
-augroup tex
-    autocmd!
-    autocmd FileType tex setlocal spell
-    autocmd FileType tex vmap j gj
-    autocmd FileType tex vmap k gk
-augroup End
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
@@ -113,10 +88,7 @@ tnoremap <M-h> h
 tnoremap <M-l> l
 tnoremap <C-k> <Up>
 tnoremap <C-j> <Down>
-augroup term
-    autocmd!
-    autocmd BufWinEnter,WinEnter term://* startinsert
-augroup End
+
 
 """ KEY MAPPING
 "Mode changing
@@ -149,8 +121,30 @@ nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
 "Paste
-nnoremap <c-p> <Plug>yankstack_substitute_older_paste
-nnoremap <c-n> <Plug>yankstack_substitute_newer_paste
+nmap <c-p> <Plug>yankstack_substitute_older_paste
+nmap <c-n> <Plug>yankstack_substitute_newer_paste
+
+
+augroup SETTINGS
+    autocmd!
+    " auto reload vimrc when editing it
+    autocmd BufWritePost *vimrc source %:p
+    " help in new tab
+    autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
+    " diff setting
+    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+    " enter insert mode when enter terminal
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    " auto change directory 
+    autocmd BufEnter *.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
+    " autoreload vimdr
+    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
+    "tex
+    autocmd FileType tex setlocal spell
+    autocmd FileType tex vmap j gj
+    autocmd FileType tex vmap k gk
+augroup END
+
 
 """ PLUGIN SETTINGS
 "fzf
@@ -194,12 +188,18 @@ let g:neomake_warning_sign = {
 "vimtex
 let g:vimtex_view_general_viewer = 'evince'
 
+"undotree
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
 
 """ Functions
 fu! RestoreCursor()
     let l=search('\%' . virtcol('.') . 'v\S', 'bW')
     call cursor(l,0)
 endfunction
+
 
 """To be written into pluggin
 
