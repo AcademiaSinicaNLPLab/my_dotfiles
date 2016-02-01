@@ -18,6 +18,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'chrisbra/csv.vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'vim-scripts/Mouse-Toggle'
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
@@ -96,7 +97,7 @@ augroup End
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
-nnoremap <leader>t :terminal zsh<CR>
+nnoremap <leader>t :tabe term://zsh<CR>
 nnoremap <M-t> <C-w>v<C-w>l:terminal zsh<CR>
 tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
@@ -145,7 +146,8 @@ nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
 "utils
-nmap <leader>sc vawlxea,<Esc>p
+nnoremap <leader>sc vawlxea,<Esc>p
+nnoremap <leader>ev :tabe ~/.nvimrc<Cr>
 "Paste
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
@@ -179,7 +181,6 @@ let g:airline_theme='wombat'
 "ultisnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger = '<Tab>'
-let g:UltiSnipsListSnippets = '<C-Tab>'
 
 "neomake
 augroup NEOMAKE_CHECK
