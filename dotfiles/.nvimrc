@@ -1,24 +1,27 @@
 "Plug Please run if not installed: curl -fLo ~/.nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'vim-scripts/tlib'
-Plug 'benekastah/neomake'
 Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/EasyGrep'
-Plug 'bling/vim-airline'
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'chrisbra/NrrwRgn'
+Plug 'rking/ag.vim'
+Plug 'benekastah/neomake'
 Plug 'lervag/vimtex'
 Plug 'kchmck/vim-coffee-script'
-Plug 'scrooloose/nerdtree'
 Plug 'chrisbra/csv.vim'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'vim-scripts/Mouse-Toggle'
+Plug 'bling/vim-airline'
+Plug 'reedes/vim-lexical'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
@@ -63,6 +66,7 @@ set showmatch		    " Cursor shows matching ) and }
 syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
+highlight SpellBad ctermbg=88
 set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
@@ -89,8 +93,7 @@ set completeopt=menu,noselect
 "spell
 augroup tex
     autocmd!
-    autocmd FileType tex set spelllang=en_us
-    autocmd FileType tex set spell
+    autocmd FileType tex setlocal spell
     autocmd FileType tex vmap j gj
     autocmd FileType tex vmap k gk
 augroup End
@@ -145,12 +148,9 @@ nnoremap <m-h> g0
 nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
-"utils
-nnoremap <leader>sc vawlxea,<Esc>p
-nnoremap <leader>ev :tabe ~/.nvimrc<Cr>
 "Paste
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-n> <Plug>yankstack_substitute_newer_paste
+nnoremap <c-p> <Plug>yankstack_substitute_older_paste
+nnoremap <c-n> <Plug>yankstack_substitute_newer_paste
 set pastetoggle=<leader>p
 
 """ PLUGIN SETTINGS
@@ -195,6 +195,9 @@ let g:neomake_warning_sign = {
     \ 'text': 'W>',
     \ 'texthl': 'WarningMsg',
     \ }
+
+"vimtex
+let g:vimtex_view_general_viewer = 'evince'
  
 
 
@@ -232,30 +235,3 @@ function! BufferGC()
     endfor
 endfunction
 
-"vim-latex
-"set grepprg=grep\ -nH\ $*
-"let g:Tex_DefaultTargetFormat = 'pdf'
-"let g:Tex_CompileRule_dvi = 'latex --interaction=nonstopmode $*'
-"let g:Tex_CompileRule_ps = 'dvips -Ppdf -o $*.ps $*.dvi'
-"let g:Tex_CompileRule_pdf = 'ps2pdf $*.ps'
-"let g:Tex_DefaultTargetFormat='pdf'
-"let g:Tex_MultipleCompileFormats='dvi,pdf'
-"let g:Tex_UseMakefile=0
-"let g:Tex_ViewRule_pdf = 'qpdfview'
-"let g:Tex_Menus=0
-"let g:Tex_FoldedCommands='ctable'
-" zg to add word to word list
-" zw to reverse
-" zug to remove word from word list
-" z= to get llist of probabilities
-"highlight clear SpellBad
-"highlight Spellbad term=standout ctermfg=1 term=underline cterm=underline
-"highlight clear SpellCap
-"highlight Spellcap term=underline cterm=underline
-"highlight clear SpareRare
-"highlight SpellLocale term=underline cterm=underline
-"highlight clear SpareLocale
-"highlight SpellLocale term=underline cterm=underline
-"highlight Pmenu term=standout  ctermfg=255  ctermbg=8
-"highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
-"
