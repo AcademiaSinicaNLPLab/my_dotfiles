@@ -9,5 +9,6 @@ map <C-l> :tabn<Return>
 noremap j 5<Down>
 noremap k 5<Up>
 noremap ; :
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
 " vim: set ft=vimperator:

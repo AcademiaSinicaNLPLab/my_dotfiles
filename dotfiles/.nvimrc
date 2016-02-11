@@ -25,6 +25,7 @@ Plug 'mbbill/undotree'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'gcmt/taboo.vim'
 "Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
@@ -238,3 +239,5 @@ function! BufferGC()
         endif
     endfor
 endfunction
+
+
