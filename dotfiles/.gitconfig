@@ -1,5 +1,5 @@
 [core]
-    editor = vim
+    editor = nvim
 [user]
 	name = ipod825
 	email = ipod825@gmail.com

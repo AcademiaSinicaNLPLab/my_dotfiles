@@ -6,36 +6,58 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/EasyGrep'
-Plug 'rking/ag.vim'
 Plug 'benekastah/neomake'
-Plug 'lervag/vimtex'
-Plug 'kchmck/vim-coffee-script'
-Plug 'chrisbra/csv.vim'
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'chrisbra/NrrwRgn'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'vim-scripts/Mouse-Toggle'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'reedes/vim-lexical'
 Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/nerdcommenter'
 Plug 'mbbill/undotree'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
-"Plug 'Shougo/deoplete.nvim'
+Plug 'vim-scripts/L9'
+Plug 'davidhalter/jedi-vim'
 
 call plug#end()
+
+augroup SETTINGS
+    autocmd!
+    " auto reload vimrc when editing it
+    autocmd BufWritePost *vimrc source %:p
+    " help in new tab
+    autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
+    " diff setting
+    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+    " enter insert mode when enter terminal
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    " auto change directory 
+    autocmd BufEnter *.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
+    " autoreload vimdr
+    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
+    autocmd BufEnter temp setlocal buftype=nofile noswapfile bufhidden=delete
+    "Filetype
+    autocmd FileType tex setlocal spell
+    autocmd FileType tex vmap j gj
+    autocmd FileType tex vmap k gk
+augroup END
+
 
 """ GENERAL SETTINGS
 filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
 filetype plugin on      " Enable filetype-specific plugins
 set hidden              " enable you to edit other buffer without saving current buffer
-set mouse=a
+set mouse=
 set copyindent          " copy the previous indentation on autoindenting
 set noignorecase        " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,case-sensitive otherwise
@@ -122,54 +144,20 @@ nnoremap <m-h> g0
 nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
-"Paste
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-n> <Plug>yankstack_substitute_newer_paste
 vnoremap <leader>p y<Esc>:tabe temp<Cr>P:setlocal mouse=<Cr>
-
-
-augroup SETTINGS
-    autocmd!
-    " auto reload vimrc when editing it
-    autocmd BufWritePost *vimrc source %:p
-    " help in new tab
-    autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
-    " diff setting
-    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
-    " enter insert mode when enter terminal
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    " auto change directory 
-    autocmd BufEnter *.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
-    " autoreload vimdr
-    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
-    autocmd BufEnter temp setlocal buftype=nofile noswapfile bufhidden=delete
-
-    "tex
-    autocmd FileType tex setlocal spell
-    autocmd FileType tex vmap j gj
-    autocmd FileType tex vmap k gk
-    "Rainbowparenthesis
-    if exists("RainbowParenthesesToggle")
-        autocmd VimEnter * RainbowParenthesesToggle
-        autocmd Syntax * RainbowParenthesesLoadRound
-        autocmd Syntax * RainbowParenthesesLoadSquare
-        autocmd Syntax * RainbowParenthesesLoadBraces
-    endif
-augroup END
 
 
 """ PLUGIN SETTINGS
 "fzf
-"
 
+"yankstack
+nmap <c-p> <Plug>yankstack_substitute_older_paste
+nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
 " EasyGrep
 let g:EasyGrepInvertWholeWord = 1
 let g:EasyGrepMode = 2
 let g:EasyGrepReplaceWindowMode = 2
-
-"deoplete
-let g:deoplete#enable_at_startup = 1
 
 "nerdtree
 let  g:NERDTreeMapActivateNode='<Space>'
@@ -200,6 +188,14 @@ let g:neomake_warning_sign = {
 "vimtex
 let g:vimtex_view_general_viewer = 'evince'
 
+"Rainbowparenthesis
+augroup PLUG_rainbow_parentheses
+    autocmd VimEnter * RainbowParenthesesToggle
+    autocmd Syntax * RainbowParenthesesLoadRound
+    autocmd Syntax * RainbowParenthesesLoadSquare
+    autocmd Syntax * RainbowParenthesesLoadBraces
+augroup end
+
 "undotree
 if has("persistent_undo")
     set undodir=~/.undodir/
@@ -211,33 +207,3 @@ fu! RestoreCursor()
     let l=search('\%' . virtcol('.') . 'v\S', 'bW')
     call cursor(l,0)
 endfunction
-
-
-"""To be written into pluggin
-
-"let g:num_buffer_kept=20
-"augroup auto_close
-"    autocmd BufNew * call BufferGC()
-"augroup End
-
-function! BufferGC()
-    "From tabpagebuflist() help, get a list of all buffers in all tabs
-    let tablist = []
-    for i in range(tabpagenr('$'))
-        call extend(tablist, tabpagebuflist(i + 1))
-    endfor
-
-    let nBuffer = bufnr('$')
-    for b in range(1, bufnr('$')-1)
-        if nBuffer<=g:num_buffer_kept
-            break
-        endif
-        if buflisted(b) && !getbufvar(b,"&mod") && index(tablist, b) == -1
-        "bufno listed AND isn't modified AND isn't in the list of buffers open in windows and tabs
-            exec 'bwipeout!' b
-            let nBuffer = nBuffer-1
-        endif
-    endfor
-endfunction
-
-
