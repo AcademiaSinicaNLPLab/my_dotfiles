@@ -28,6 +28,7 @@ export PATH=$SITE_PATH:$PATH
 #completion
 zstyle ':completion:*' menu select
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' rehash true
 
 #history
 HISTFILE=~/.zsh_history
@@ -44,6 +45,8 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 #Bindings
+bindkey '^k' history-substring-search-up
+bindkey '^j' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey "^[h" beginning-of-line
