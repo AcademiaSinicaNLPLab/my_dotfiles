@@ -1,7 +1,9 @@
-"3.9 (created: 2015/02/15 15:49:05)
+"3.11.3 (created: 2016/01/30 14:42:44)
 
 inoremap jk <Esc>
 inoremap <C-a> <C-Home><C-S-End>
+inoremap <C-t> <Esc><C-t>
+inoremap <C-w> <Esc><C-w>
 map h <A-Left>
 map l <A-Right>
 map <C-h> :tabp<Return>
@@ -10,5 +12,6 @@ noremap j 5<Down>
 noremap k 5<Up>
 noremap ; :
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
+source! /home/mingo/.vimperatorrc.local
 
 " vim: set ft=vimperator:
