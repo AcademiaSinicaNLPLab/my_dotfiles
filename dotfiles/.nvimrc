@@ -21,7 +21,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'reedes/vim-lexical'
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
@@ -188,18 +188,22 @@ let g:neomake_warning_sign = {
 let g:vimtex_view_general_viewer = 'evince'
 
 "Rainbowparenthesis
-augroup PLUG_rainbow_parentheses
-    autocmd VimEnter * RainbowParenthesesToggle
-    autocmd Syntax * RainbowParenthesesLoadRound
-    autocmd Syntax * RainbowParenthesesLoadSquare
-    autocmd Syntax * RainbowParenthesesLoadBraces
-augroup end
+"augroup PLUG_rainbow_parentheses
+"    autocmd VimEnter * RainbowParenthesesToggle
+"    autocmd Syntax * RainbowParenthesesLoadRound
+"    autocmd Syntax * RainbowParenthesesLoadSquare
+"    autocmd Syntax * RainbowParenthesesLoadBraces
+"augroup end
+let g:rainbow_active = 1
+let g:rainbow_conf = {'ctermfgs': ['1', '2', '3', '6']}
 
 "undotree
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+"rainbow
 
 """ Functions
 fu! RestoreCursor()
