@@ -144,6 +144,8 @@ nnoremap <m-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
 vnoremap <leader>p y<Esc>:tabe temp<Cr>P:setlocal mouse=<Cr>
+"utils
+nnoremap Q :q!<CR>
 
 
 """ PLUGIN SETTINGS
@@ -188,14 +190,11 @@ let g:neomake_warning_sign = {
 let g:vimtex_view_general_viewer = 'evince'
 
 "Rainbowparenthesis
-"augroup PLUG_rainbow_parentheses
-"    autocmd VimEnter * RainbowParenthesesToggle
-"    autocmd Syntax * RainbowParenthesesLoadRound
-"    autocmd Syntax * RainbowParenthesesLoadSquare
-"    autocmd Syntax * RainbowParenthesesLoadBraces
-"augroup end
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': ['1', '2', '3', '6']}
+
+"jedi
+let g:jedi#show_call_signatures = 2
 
 "undotree
 if has("persistent_undo")
