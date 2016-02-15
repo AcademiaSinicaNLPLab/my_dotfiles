@@ -5,7 +5,7 @@ then
 git clone https://github.com/zsh-users/antigen.git $GEN_HOME
 fi
 source "$GEN_HOME/antigen.zsh"
-antigen bundle tarruda/zsh-autosuggestions dist
+antigen bundle tarruda/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
@@ -55,7 +55,6 @@ bindkey "^[l" end-of-line
 #Plugins
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
-autosuggest_start
 ZSH_AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=245'
 
 #PS1
