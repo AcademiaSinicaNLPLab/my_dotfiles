@@ -28,7 +28,6 @@ export PATH=$SITE_PATH:$PATH
 #completion
 zstyle ':completion:*' menu select
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' rehash true
 
 #history
 HISTFILE=~/.zsh_history
