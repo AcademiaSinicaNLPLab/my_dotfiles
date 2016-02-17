@@ -123,6 +123,8 @@ inoremap <c-a> <esc><c-w>
 vnoremap < <gv
 vnoremap > >gv
 "Moving around
+nnoremap <C-M-h> :tabm -1<CR>
+nnoremap <C-M-l> :tabm +1<CR>
 nnoremap <C-h> <Esc>gT
 nnoremap <C-l> <Esc>gt
 nnoremap j gj
