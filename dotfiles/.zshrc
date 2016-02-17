@@ -52,6 +52,8 @@ bindkey "^[h" beginning-of-line
 bindkey "^[l" end-of-line
 
 #Plugins
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(end-of-line)
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(forward-char forward-word)
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 ZSH_AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=245'
