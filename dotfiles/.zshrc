@@ -17,11 +17,11 @@ WORDCHARS=${WORDCHARS/\/} #treat \ as word
 
 #alias
 alias mmv='noglob zmv -W'
-alias ls='ls --color'
+alias ls='ls --color --hide="*.pyc"'
 alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column -c 180 -s "  "; echo -e "\e[m"'
 
 #Path
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game" 
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/game:$HOME/.fzf/bin" 
 source $HOME/.zsh_site_env 2> /dev/null #Customize site path in ~/.zsh_site_env
 export PATH=$SITE_PATH:$PATH
 
@@ -69,3 +69,5 @@ set_ps1() {
 set_ps1_chpwd() { KEYMAP="viins" && set_ps1 }
 chpwd_functions+=( set_ps1_chpwd )
 set_ps1_chpwd
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

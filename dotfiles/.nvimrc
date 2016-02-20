@@ -152,6 +152,7 @@ nnoremap Q :q!<CR>
 
 """ PLUGIN SETTINGS
 "fzf
+nnoremap <C-o> :FZF<CR>
 
 "yankstack
 nmap <c-p> <Plug>yankstack_substitute_older_paste
