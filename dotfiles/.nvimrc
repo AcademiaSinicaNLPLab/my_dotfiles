@@ -11,6 +11,7 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/EasyGrep'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
+"Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
@@ -45,10 +46,11 @@ augroup SETTINGS
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
     autocmd BufEnter temp setlocal buftype=nofile noswapfile bufhidden=delete
     "Filetype
-    autocmd FileType tex setlocal spell
-    autocmd FileType tex vmap j gj
-    autocmd FileType tex vmap k gk
+    autocmd FileType *.tex, *.md setlocal spell
+    autocmd FileType *.tex, *.md vmap j gj
+    autocmd FileType *.tex, *.md vmap k gk
 augroup END
+
 
 
 """ GENERAL SETTINGS
@@ -149,7 +151,6 @@ vnoremap <leader>p y<Esc>:tabe temp<Cr>P:setlocal mouse=<Cr>
 "utils
 nnoremap Q :q!<CR>
 
-
 """ PLUGIN SETTINGS
 "fzf
 
@@ -190,6 +191,9 @@ let g:neomake_warning_sign = {
 
 "vimtex
 let g:vimtex_view_general_viewer = 'evince'
+
+"vim-markdown
+let g:vim_markdown_math = 1
 
 "Rainbowparenthesis
 let g:rainbow_active = 1
