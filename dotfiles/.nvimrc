@@ -100,8 +100,9 @@ set completeopt=menu,noselect
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
-nnoremap <leader>t :tabe term://zsh<CR>
-nnoremap <M-t> <C-w>v<C-w>l:terminal zsh<CR>
+nnoremap <M-t> :tabe term://zsh<CR>
+nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
+nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
 tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
 tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
