@@ -26,8 +26,6 @@ Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
-"Plug 'davidhalter/jedi-vim', {'for': 'python'}
-"Plug 'klen/python-mode'
 
 call plug#end()
 
@@ -184,7 +182,7 @@ augroup NEOMAKE_CHECK
     autocmd BufWritePost * Neomake
 augroup End
 let g:neomake_python_pep8_maker = {
-    \ 'args': ['--ignore','E128, E501'],
+    \ 'args': ['--ignore','E128, E402, E501'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
 let g:neomake_python_enabled_makers = ['python', 'pep8']

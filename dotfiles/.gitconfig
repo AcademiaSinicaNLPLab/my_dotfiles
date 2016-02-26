@@ -7,3 +7,5 @@
 	st = status
 	cm = commit
     co = checkout
+[push]
+	default = simple
