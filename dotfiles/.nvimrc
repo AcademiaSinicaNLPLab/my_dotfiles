@@ -26,7 +26,8 @@ Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
+"Plug 'davidhalter/jedi-vim', {'for': 'python'}
+"Plug 'klen/python-mode'
 
 call plug#end()
 
@@ -182,6 +183,11 @@ augroup NEOMAKE_CHECK
     autocmd!
     autocmd BufWritePost * Neomake
 augroup End
+let g:neomake_python_pep8_maker = {
+    \ 'args': ['--ignore','E128, E501'],
+    \ 'errorformat': '%f:%l:%c: %m',
+    \ }
+let g:neomake_python_enabled_makers = ['python', 'pep8']
 let g:neomake_error_sign = {
     \ 'text': 'E>',
     \ 'texthl': 'ErrorMsg',
@@ -209,6 +215,10 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+"py-mode
+let g:pymode_lint_ignore = "E501,W"
+let g:pymode_lint_cwindow = 0
 
 "rainbow
 
