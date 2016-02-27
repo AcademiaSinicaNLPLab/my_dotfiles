@@ -58,6 +58,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-li
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 ZSH_AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=245'
 
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=11
+
 #PS1
 host_prompt="%F{39}%m"
 set_ps1() { 
