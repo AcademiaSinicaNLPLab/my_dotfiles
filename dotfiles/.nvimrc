@@ -183,7 +183,7 @@ augroup NEOMAKE_CHECK
     autocmd BufWritePost * Neomake
 augroup End
 let g:neomake_python_pep8_maker = {
-    \ 'args': ['--ignore','E128, E402, E501'],
+    \ 'args': ['--ignore','E128, E402, E501', 'E302'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
 let g:neomake_python_enabled_makers = ['python', 'pep8']
