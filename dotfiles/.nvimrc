@@ -175,6 +175,7 @@ let g:airline_theme='wombat'
 "ultisnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:ultisnips_python_style = 'numpy'
 
 "neomake
 augroup NEOMAKE_CHECK
