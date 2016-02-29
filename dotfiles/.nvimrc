@@ -8,7 +8,6 @@ Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
-Plug 'vim-scripts/EasyGrep'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
 "Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
@@ -20,12 +19,13 @@ Plug 'vim-scripts/Mouse-Toggle'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'reedes/vim-lexical'
-Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree'
 Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
+Plug 'rking/ag.vim'
+Plug 'dkprice/vim-easygrep' 
 
 call plug#end()
 
@@ -159,11 +159,6 @@ nnoremap <C-o> :FZF<CR>
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
-" EasyGrep
-let g:EasyGrepInvertWholeWord = 1
-let g:EasyGrepMode = 2
-let g:EasyGrepReplaceWindowMode = 2
-
 "nerdtree
 let  g:NERDTreeMapActivateNode='<Space>'
 let  g:NERDTreeMapChdir='<Cr>'
@@ -183,7 +178,7 @@ augroup NEOMAKE_CHECK
     autocmd BufWritePost * Neomake
 augroup End
 let g:neomake_python_pep8_maker = {
-    \ 'args': ['--ignore','E128, E402, E501', 'E302'],
+    \ 'args': ['--ignore','E128, E302, E402, E501'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
 let g:neomake_python_enabled_makers = ['python', 'pep8']
@@ -215,9 +210,30 @@ if has("persistent_undo")
     set undofile
 endif
 
-"py-mode
-let g:pymode_lint_ignore = "E501,W"
-let g:pymode_lint_cwindow = 0
+"ag
+let g:ag_working_path_mode="r"
+if executable('ag')
+  set grepprg=ag
+endif
+
+"vim-easygrep
+"let g:EasyGrepAllOptionsInExplorer=1 " don't show advanced greping options
+let g:EasyGrepFilesToExclude="tags"  " not usable if I use ag for searching
+let g:EasyGrepInvertWholeWord=0      " <Leader>vv matches word, and <Leader>vV matches whole word
+
+let g:EasyGrepReplaceWindowMode=2      " autowriteall all changes during a search and replace session
+let g:EasyGrepOptionPrefix='<leader>e' " shortcut to turn on and off certain grepoptions
+let g:EasyGrepRecursive=0              " turn on recurse option for replacement
+
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
 
 "rainbow
 
