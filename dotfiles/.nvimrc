@@ -25,7 +25,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
-Plug 'dkprice/vim-easygrep' 
+Plug 'vim-scripts/L9'
+Plug 'ipod825/AutoComplPop'
 
 call plug#end()
 
@@ -40,7 +41,7 @@ augroup SETTINGS
     " enter insert mode when enter terminal
     autocmd BufWinEnter,WinEnter term://* startinsert
     " auto change directory 
-    autocmd BufEnter *.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv silent! lcd %:p:h
+    autocmd BufEnter *.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
     " autoreload vimdr
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
     autocmd BufEnter temp setlocal buftype=nofile noswapfile bufhidden=delete
