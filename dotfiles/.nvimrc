@@ -11,6 +11,8 @@ Plug 'majutsushi/tagbar'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
 "Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
