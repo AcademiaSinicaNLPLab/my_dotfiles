@@ -17,7 +17,7 @@ WORDCHARS=${WORDCHARS/\/} #treat \ as word
 
 #alias
 alias mmv='noglob zmv -W'
-alias ls='ls --color --hide="*.pyc"'
+alias ls='ls --color'
 alias palette='for i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column -c 180 -s "  "; echo -e "\e[m"'
 
 #Path

@@ -163,8 +163,9 @@ nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
 "nerdtree
-let  g:NERDTreeMapActivateNode='<Space>'
-let  g:NERDTreeMapChdir='<Cr>'
+let g:NERDTreeMapActivateNode='<Space>'
+let g:NERDTreeMapChdir='<Cr>'
+let g:nerdtreemaprefreshroot='r'
 let NERDTreeIgnore = ['\.pyc$']
 
 "airline
