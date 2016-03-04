@@ -77,8 +77,9 @@ colorscheme ron
 set showmatch		    " Cursor shows matching ) and }
 syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
-highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
+highlight PmenuSel term=standout  ctermfg=255  ctermbg=29
 highlight SpellBad ctermbg=88
+highlight CursorLine term=bold cterm=bold ctermbg=239
 set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
