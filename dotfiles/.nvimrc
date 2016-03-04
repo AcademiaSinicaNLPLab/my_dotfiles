@@ -26,6 +26,7 @@ Plug 'luochen1990/rainbow'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
+"Plug 'tell-k/vim-autopep8'
 Plug 'vim-scripts/L9'
 Plug 'ipod825/AutoComplPop'
 
@@ -167,8 +168,9 @@ let g:EasyGrepMode = 2
 let g:EasyGrepReplaceWindowMode = 2
 
 "nerdtree
-let  g:NERDTreeMapActivateNode='<Space>'
-let  g:NERDTreeMapChdir='<Cr>'
+let g:NERDTreeMapActivateNode='<Space>'
+let g:NERDTreeMapChdir='<Cr>'
+let g:nerdtreemaprefreshroot='r'
 let NERDTreeIgnore = ['\.pyc$']
 
 "airline
