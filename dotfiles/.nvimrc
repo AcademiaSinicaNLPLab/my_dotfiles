@@ -79,7 +79,7 @@ syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=29
 highlight SpellBad ctermbg=88
-highlight CursorLine term=bold cterm=bold ctermbg=239
+highlight CursorLine term=bold cterm=bold
 set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
@@ -145,6 +145,7 @@ vnoremap <C-j> djP<S-v>
 "Moving around (home,end)
 onoremap <M-h> g0
 onoremap <M-l> g$
+onoremap jk <Esc>
 vnoremap <m-h> g0
 vnoremap <m-l> g$
 nnoremap <m-h> g0
