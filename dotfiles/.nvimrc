@@ -52,7 +52,6 @@ augroup SETTINGS
 augroup END
 
 
-
 """ GENERAL SETTINGS
 filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
