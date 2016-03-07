@@ -10,8 +10,10 @@ Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-" Plug 'chrisbra/csv.vim', {'for': 'csv'}
+Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'vim-scripts/Mouse-Toggle'
@@ -24,7 +26,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
-Plug 'vim-scripts/L9'
 Plug 'Shougo/deoplete.nvim'
 Plug 'hynek/vim-python-pep8-indent'
 
@@ -76,6 +77,7 @@ syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
 highlight SpellBad ctermbg=88
+highlight CursorLine term=bold cterm=bold
 set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
@@ -94,8 +96,9 @@ set shiftwidth=4
 set tabstop=4
 set expandtab
 "Complete
-set completeopt=menu,noselect
+set completeopt=menu,noinsert
 "spell
+
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
@@ -141,6 +144,7 @@ vnoremap <C-j> djP<S-v>
 "Moving around (home,end)
 onoremap <M-h> g0
 onoremap <M-l> g$
+onoremap jk <Esc>
 vnoremap <m-h> g0
 vnoremap <m-l> g$
 nnoremap <m-h> g0
@@ -195,15 +199,9 @@ let g:neomake_warning_sign = {
 "vimtex
 let g:vimtex_view_general_viewer = 'evince'
 
-"vim-markdown
-let g:vim_markdown_math = 1
-
 "Rainbowparenthesis
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': ['1', '2', '3', '6']}
-
-"jedi
-let g:jedi#show_call_signatures = 2
 
 "undotree
 if has("persistent_undo")
@@ -220,26 +218,6 @@ endif
 "deoplete
 let g:deoplete#enable_at_startup = 1
 
-"vim-easygrep
-"let g:EasyGrepAllOptionsInExplorer=1 " don't show advanced greping options
-let g:EasyGrepFilesToExclude="tags"  " not usable if I use ag for searching
-let g:EasyGrepInvertWholeWord=0      " <Leader>vv matches word, and <Leader>vV matches whole word
-
-let g:EasyGrepReplaceWindowMode=2      " autowriteall all changes during a search and replace session
-let g:EasyGrepOptionPrefix='<leader>e' " shortcut to turn on and off certain grepoptions
-let g:EasyGrepRecursive=0              " turn on recurse option for replacement
-
-command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
-function! QuickfixFilenames()
-  " Building a hash ensures we get each buffer only once
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(values(buffer_numbers))
-endfunction
-
-"rainbow
 
 """ Functions
 fu! RestoreCursor()
