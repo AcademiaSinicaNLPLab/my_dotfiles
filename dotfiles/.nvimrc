@@ -11,7 +11,7 @@ Plug 'majutsushi/tagbar'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-Plug 'chrisbra/csv.vim', {'for': 'csv'}
+" Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'vim-scripts/Mouse-Toggle'
@@ -26,6 +26,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/L9'
 Plug 'Shougo/deoplete.nvim'
+Plug 'hynek/vim-python-pep8-indent'
 
 call plug#end()
 
@@ -74,7 +75,7 @@ colorscheme ron
 set showmatch		    " Cursor shows matching ) and }
 syntax on		        " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
-highlight PmenuSel term=standout  ctermfg=255  ctermbg=3
+highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
 highlight SpellBad ctermbg=88
 set winminwidth=0
 "Backup
