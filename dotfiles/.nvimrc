@@ -10,7 +10,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
-"Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
@@ -72,14 +71,17 @@ set autoread
 set cursorline
 set virtualedit=block
 "Appearance
+set list
+set listchars=trail:•
 set background=dark
 colorscheme ron
-set showmatch		    " Cursor shows matching ) and }
-syntax on		        " syntax highlight
+set showmatch       " Cursor shows matching ) and }
+syntax on           " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=29
 highlight SpellBad ctermbg=88
 highlight CursorLine term=bold cterm=bold
+highlight ExtraWhitespace ctermbg=red
 set winminwidth=0
 "Backup
 set nobackup            " no *~ backup files
