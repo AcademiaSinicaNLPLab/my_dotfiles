@@ -29,7 +29,8 @@ Plug 'rking/ag.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'junegunn/gv.vim'
-Plug 'wellle/targets.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'ipod825/vim-textobj-ipod825'
 
 call plug#end()
 
@@ -145,6 +146,7 @@ cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 vnoremap <C-k> dkP<S-v>
 vnoremap <C-j> djP<S-v>
+
 "Moving around (home,end)
 onoremap <M-h> g0
 onoremap <M-l> g$
