@@ -28,6 +28,8 @@ Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'junegunn/gv.vim'
+Plug 'wellle/targets.vim'
 
 call plug#end()
 
@@ -119,7 +121,6 @@ tnoremap <M-h> h
 tnoremap <M-l> l
 tnoremap <C-k> <Up>
 tnoremap <C-j> <Down>
-
 
 """ KEY MAPPING
 "Mode changing
@@ -220,7 +221,6 @@ endif
 
 "deoplete
 let g:deoplete#enable_at_startup = 1
-
 
 """ Functions
 fu! RestoreCursor()
