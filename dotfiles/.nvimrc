@@ -100,8 +100,8 @@ set tabstop=4
 set expandtab
 "Complete
 set completeopt=menu,noinsert
+inoremap <expr> <CR> pumvisible() ? "\<C-S-y>" : "\<C-g>u\<CR>"
 "spell
-
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
