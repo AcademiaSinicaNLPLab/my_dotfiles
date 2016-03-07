@@ -26,8 +26,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
-Plug 'vim-scripts/L9'
-Plug 'ipod825/AutoComplPop'
+Plug 'Shougo/deoplete.nvim'
+Plug 'hynek/vim-python-pep8-indent'
 
 call plug#end()
 
@@ -51,7 +51,6 @@ augroup SETTINGS
     autocmd FileType *.tex, *.md vmap j gj
     autocmd FileType *.tex, *.md vmap k gk
 augroup END
-
 
 
 """ GENERAL SETTINGS
@@ -78,7 +77,7 @@ colorscheme ron
 set showmatch       " Cursor shows matching ) and }
 syntax on           " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
-highlight PmenuSel term=standout  ctermfg=255  ctermbg=29
+highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
 highlight SpellBad ctermbg=88
 highlight CursorLine term=bold cterm=bold
 highlight ExtraWhitespace ctermbg=red
@@ -100,8 +99,9 @@ set shiftwidth=4
 set tabstop=4
 set expandtab
 "Complete
-set completeopt=menu,noselect
+set completeopt=menu,noinsert
 "spell
+
 
 "Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
@@ -186,7 +186,7 @@ augroup NEOMAKE_CHECK
     autocmd BufWritePost * Neomake
 augroup End
 let g:neomake_python_pep8_maker = {
-    \ 'args': ['--ignore','E128, E302, E402, E501'],
+    \ 'args': ['--ignore','E251, E225, E226, W291, W293, E501, E402, E731, E302, E231, E241, E261'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
 let g:neomake_python_enabled_makers = ['python', 'pep8']
@@ -202,15 +202,9 @@ let g:neomake_warning_sign = {
 "vimtex
 let g:vimtex_view_general_viewer = 'evince'
 
-"vim-markdown
-let g:vim_markdown_math = 1
-
 "Rainbowparenthesis
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': ['1', '2', '3', '6']}
-
-"jedi
-let g:jedi#show_call_signatures = 2
 
 "undotree
 if has("persistent_undo")
@@ -224,26 +218,9 @@ if executable('ag')
   set grepprg=ag
 endif
 
-"vim-easygrep
-"let g:EasyGrepAllOptionsInExplorer=1 " don't show advanced greping options
-let g:EasyGrepFilesToExclude="tags"  " not usable if I use ag for searching
-let g:EasyGrepInvertWholeWord=0      " <Leader>vv matches word, and <Leader>vV matches whole word
+"deoplete
+let g:deoplete#enable_at_startup = 1
 
-let g:EasyGrepReplaceWindowMode=2      " autowriteall all changes during a search and replace session
-let g:EasyGrepOptionPrefix='<leader>e' " shortcut to turn on and off certain grepoptions
-let g:EasyGrepRecursive=0              " turn on recurse option for replacement
-
-command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
-function! QuickfixFilenames()
-  " Building a hash ensures we get each buffer only once
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(values(buffer_numbers))
-endfunction
-
-"rainbow
 
 """ Functions
 fu! RestoreCursor()
