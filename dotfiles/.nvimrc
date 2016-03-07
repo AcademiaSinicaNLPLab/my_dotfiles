@@ -10,7 +10,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
 Plug 'benekastah/neomake'
 Plug 'lervag/vimtex', {'for': 'tex'}
-"Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
@@ -26,7 +25,7 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/L9'
-Plug 'ipod825/AutoComplPop'
+Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
 
@@ -180,7 +179,7 @@ augroup NEOMAKE_CHECK
     autocmd BufWritePost * Neomake
 augroup End
 let g:neomake_python_pep8_maker = {
-    \ 'args': ['--ignore','E128, E302, E402, E501'],
+    \ 'args': ['--ignore','E251, E225, E226, W291, W293, E501, E402, E731, E302, E231, E241, E261'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
 let g:neomake_python_enabled_makers = ['python', 'pep8']
@@ -217,6 +216,9 @@ let g:ag_working_path_mode="r"
 if executable('ag')
   set grepprg=ag
 endif
+
+"deoplete
+let g:deoplete#enable_at_startup = 1
 
 "vim-easygrep
 "let g:EasyGrepAllOptionsInExplorer=1 " don't show advanced greping options
