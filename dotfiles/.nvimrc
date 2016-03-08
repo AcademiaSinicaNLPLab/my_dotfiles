@@ -13,7 +13,7 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-" Plug 'chrisbra/csv.vim', {'for': 'csv'}
+Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'vim-scripts/Mouse-Toggle'
@@ -89,7 +89,7 @@ set winminwidth=0
 set nobackup            " no *~ backup files
 "Fold
 set foldmethod=indent
-noremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+noremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space> zf
 "Timeout
 set timeoutlen=500
@@ -160,6 +160,7 @@ inoremap <M-l> <Esc>g$i
 vnoremap <leader>p y<Esc>:tabe temp<Cr>P:setlocal mouse=<Cr>
 "utils
 nnoremap Q :q!<CR>
+nnoremap <C-/> gcc
 
 """ PLUGIN SETTINGS
 "fzf
