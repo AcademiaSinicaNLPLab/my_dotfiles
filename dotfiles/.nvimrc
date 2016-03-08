@@ -1,4 +1,3 @@
-" vim: set foldmethod=marker foldlevel=0:
 " .nvimrc of ipod825 {{{
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
@@ -69,6 +68,8 @@ augroup SETTINGS
     " Disable rainbow for vimrc
     autocmd BufEnter *vimrc RainbowToggleOff
     autocmd BufLeave *vimrc RainbowToggleOn
+    " Use mark for vimrc
+    autocmd BufEnter *vimrc setlocal foldmethod=marker
     " Help in new tab
     autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
     " Diff setting
@@ -151,8 +152,10 @@ inoremap <c-a> <esc><c-w>
 " Moving Around {{{
 nnoremap j gj
 nnoremap k gk
-nnoremap <C-j> <C-e>
-nnoremap <C-k> <C-y>
+nnoremap <C-j> }
+nnoremap <C-k> {
+vnoremap <C-j> }
+vnoremap <C-k> {
 "}}}
 
 " Moving Around (home,end) {{{
@@ -193,8 +196,6 @@ nnoremap <C-/> gcc " Toggle comment
 " Keep in visual mode
 vnoremap < <gv
 vnoremap > >gv
-vnoremap <C-k> dkP<S-v>
-vnoremap <C-j> djP<S-v>
 " Tab switching
 nnoremap <C-h> gT
 nnoremap <C-l> gt
@@ -206,8 +207,8 @@ nnoremap <C-M-l> :tabm +1<CR>
 nnoremap <C-a> <C-w>
 " Up & Down
 cnoremap <C-j> <Down>
-tnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
+tnoremap <C-j> <Down>
 tnoremap <C-k> <Up>
 "}}}
 
