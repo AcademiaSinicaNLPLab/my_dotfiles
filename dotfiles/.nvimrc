@@ -13,7 +13,7 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-Plug 'chrisbra/csv.vim', {'for': 'csv'}
+" Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'vim-scripts/Mouse-Toggle'
@@ -82,7 +82,7 @@ syntax on           " syntax highlight
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
 highlight SpellBad ctermbg=88
-highlight CursorLine term=bold cterm=bold
+highlight CursorLine term=bold cterm=bold ctermbg=233
 highlight ExtraWhitespace ctermbg=red
 set winminwidth=0
 "Backup
