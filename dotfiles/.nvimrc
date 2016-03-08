@@ -1,5 +1,6 @@
-""" PLUGINS
-"{{{ Automatically install vim-plug
+" vim: set foldmethod=marker foldlevel=0:
+" .nvimrc of ipod825 {{{
+" Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
     echo "Installing vim-plug.."
@@ -7,10 +8,10 @@ if !filereadable(vim_plug_file)
     silent !mkdir -p ~/.nvim/autoload
     silent !wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.nvim/autoload
 endif
-"}}}
+" }}}
 
+""" PLUGINS {{{
 call plug#begin('~/.nvim/bundle')
-"{{{ Add plugins here
 "" Coding
 Plug 'tomtom/tcomment_vim'
 Plug 'majutsushi/tagbar'
@@ -21,9 +22,10 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
+Plug 'Yggdroot/indentLine'
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
+Plug 'junegunn/gv.vim', {'on': 'GV'}
 "" Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -35,36 +37,35 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "" Technical writing
 Plug 'reedes/vim-lexical'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc', {'for': ['tex', 'md']}
+Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['tex', 'md']}
 "" Completion
 Plug 'Shougo/deoplete.nvim'
 "" File browsing
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all', 'on': 'FZF' }
 "" General utils
 Plug 'mbbill/undotree'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'ipod825/vim-textobj-ipod825'
-"}}}
+Plug 'tpope/vim-repeat'
 call plug#end()
+"}}}
 
 
-"""""""""""""""""""""""
-"""GENERAL SETTINGS""""
-"""""""""""""""""""""""
-"{{{ Main Autocmd Group
+" ============================================================================
+" GENERAL SETTINGS
+" ============================================================================
+" Main Autocmd Group {{{
 augroup SETTINGS
     autocmd!
     " Automatically reload vimrc when editing it
-    autocmd BufWritePost *.vimrc source %
-    " Use marker for folding in vimrc
-    autocmd BufEnter *vimrc setlocal foldmethod=marker
+    autocmd BufWritePost *vimrc source %:p
     " Disable rainbow for vimrc
     autocmd BufEnter *vimrc RainbowToggleOff
     autocmd BufLeave *vimrc RainbowToggleOn
@@ -83,7 +84,7 @@ augroup SETTINGS
 augroup END
 "}}}
 
-"{{{ Main Setting
+" Main Setting {{{
 filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
 filetype plugin on      " Enable filetype-specific plugins
@@ -93,7 +94,6 @@ set mouse=              " Disable mouse (for using mouse to copy text from to sy
 set copyindent          " Copy the previous indentation on autoindenting
 set ignorecase          " Ignore case when searching
 set smartcase           " Ignore case when searching only if searching pattern contains only lower letters
-set nobackup            " No *~ backup files
 set noautoread          " Do note automatically refresh file after modified (use :e instead)
 set foldmethod=indent   " Folding with indent
 set foldnestmax=5       " Maximum folding
@@ -106,7 +106,7 @@ set diffopt+=vertical
 set virtualedit=block
 "}}}
 
-"{{{ Appearance
+" Appearance {{{
 set showmatch           " Highlight matching ) and }
 set background=dark
 colorscheme ron
@@ -137,10 +137,10 @@ inoremap <expr> <CR> pumvisible() ? "\<C-S-y>" : "\<C-g>u\<CR>"
 "" spell
 "}}}
 
-"""""""""""""""""""
-"""KEY MAPPING"""""
-"""""""""""""""""""
-"{{{ Mode Changing
+" ============================================================================
+" KEY MAPPING
+" ============================================================================
+" Mode Changing {{{
 nnoremap ; :
 inoremap jk <Esc>
 cnoremap jk <Esc>
@@ -148,14 +148,14 @@ vnoremap <Cr> <Esc>
 inoremap <c-a> <esc><c-w>
 "}}}
 
-"{{{ Moving Around
+" Moving Around {{{
 nnoremap j gj
 nnoremap k gk
 nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 "}}}
 
-"{{{ Moving Around (home,end)
+" Moving Around (home,end) {{{
 onoremap <M-h> g0
 onoremap <M-l> g$
 onoremap jk <Esc>
@@ -169,20 +169,26 @@ tnoremap <M-h> h
 tnoremap <M-l> l
 "}}}
 
-"{{{ Terminal
-let g:terminal_scrollback_buffer_size=100000 
-" Open a new one
-nnoremap <M-t> :tabe term://zsh<CR>
-nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
-nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
-" Stay at the last line when exiting terminal
-tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
-tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
-tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
-tnoremap <C-z> <C-v><C-z>
+" Terminal {{{
+if has('nvim')
+    let g:terminal_scrollback_buffer_size=100000 
+    " Open a new one
+    nnoremap <M-t> :tabe term://zsh<CR>
+    nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
+    nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
+    " Stay at the last line when exiting terminal
+    tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
+    tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
+    tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
+    tnoremap <C-z> <C-v><C-z>
+    tnoremap <M-a> <Esc>a
+    tnoremap <M-b> <Esc>b
+    tnoremap <M-d> <Esc>d
+    tnoremap <M-f> <Esc>f
+endif
 "}}}
 
-"{{{ Handy Mapping
+" Handy Mapping {{{
 nnoremap <C-/> gcc " Toggle comment
 " Keep in visual mode
 vnoremap < <gv
@@ -205,32 +211,32 @@ cnoremap <C-k> <Up>
 tnoremap <C-k> <Up>
 "}}}
 
-"""""""""""""""""""""
-"""PLUGIN SETTINGS"""
-"""""""""""""""""""""
-"{{{ Add Plugin Setting Here
-""" fzf
+" ============================================================================
+" PLUGIN SETTINGS
+" ============================================================================
+" Add Plugin Setting Here {{{
+" fzf
 nnoremap <C-o> :FZF<CR>
 
-""" yankstack
+" yankstack
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
-""" nerdtree
+" nerdtree
 let g:NERDTreeMapActivateNode='<Space>'
 let g:NERDTreeMapChdir='<Cr>'
 let g:nerdtreemaprefreshroot='r'
 let NERDTreeIgnore = ['\.pyc$']
 
-""" airline
+" airline
 let g:airline_theme='wombat'
 
-""" ultisnips
+" ultisnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:ultisnips_python_style = 'numpy'
 
-""" neomake
+" neomake
 augroup NEOMAKE_CHECK
     autocmd!
     autocmd BufWritePost * Neomake
@@ -249,39 +255,42 @@ let g:neomake_warning_sign = {
     \ 'texthl': 'WarningMsg',
     \ }
 
-""" vimtex
+" vimtex
 let g:vimtex_view_general_viewer = 'evince'
 
-""" Rainbowparenthesis
+" Rainbowparenthesis
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': ['1', '2', '3', '6']}
 
-""" undotree
+" undotree
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
 
-""" ag
+" ag
 let g:ag_working_path_mode="r"
 if executable('ag')
   set grepprg=ag
 endif
 
-""" deoplete
+" indentLine
+let g:indentLine_color_term = 35
+
+" deoplete
 let g:deoplete#enable_at_startup = 1
 "}}}
 
-"""""""""""""""
-"""Functions"""
-"""""""""""""""
-"{{{ Add Functions Here
+" ============================================================================
+" Functions
+" ============================================================================
+" Add Functions Here {{{
 fu! RestoreCursor()
     let l=search('\%' . virtcol('.') . 'v\S', 'bW')
     call cursor(l,0)
 endfunction
 
-function MyFoldText()
+fu! MyFoldText()
   let nucolwidth = &fdc + &number*&numberwidth
   let winwd = winwidth(0) - nucolwidth - 5
   let foldlinecount = foldclosedend(v:foldstart) - foldclosed(v:foldstart) + 1
