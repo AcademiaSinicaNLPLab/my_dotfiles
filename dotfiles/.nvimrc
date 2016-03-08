@@ -1,4 +1,13 @@
-"Plug Please run if not installed: curl -fLo ~/.nvim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+""" Plugings
+" Automatically install vim-plug
+let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
+if !filereadable(vim_plug_file)
+    echo "Installing vim-plug.."
+    echo ""
+    silent !mkdir -p ~/.nvim/autoload
+    silent !wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.nvim/autoload
+endif
+
 call plug#begin('~/.nvim/bundle')
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
@@ -45,7 +54,7 @@ augroup SETTINGS
     " enter insert mode when enter terminal
     autocmd BufWinEnter,WinEnter term://* startinsert
     " auto change directory 
-    autocmd BufEnter *.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
+    autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
     " autoreload vimdr
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
     autocmd BufEnter temp setlocal buftype=nofile noswapfile bufhidden=delete
@@ -72,7 +81,7 @@ set wildignore=*/.git/*,*.o,*.class,*.pyc,*/corpus/* "ignore these files while e
 set autoread
 set cursorline
 set virtualedit=block
-"Appearance
+"" Appearance
 set list
 set listchars=trail:•
 set background=dark
@@ -85,28 +94,28 @@ highlight SpellBad ctermbg=88
 highlight CursorLine term=bold cterm=bold ctermbg=233
 highlight ExtraWhitespace ctermbg=red
 set winminwidth=0
-"Backup
+"" Backup
 set nobackup            " no *~ backup files
-"Fold
+"" Fold
 set foldmethod=indent
 noremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space> zf
-"Timeout
+"" Timeout
 set timeoutlen=500
 set ttimeoutlen=0
-"Diff
+"" Diff
 set diffopt+=vertical
 cnoreabbrev dp diffput
-"Tab
+"" Tab
 set shiftwidth=4
 set tabstop=4
 set expandtab
-"Complete
+"" Complete
 set completeopt=menu,noinsert
 inoremap <expr> <CR> pumvisible() ? "\<C-S-y>" : "\<C-g>u\<CR>"
-"spell
+"" spell
 
-"Terminal setting
+"" Terminal setting
 let g:terminal_scrollback_buffer_size=100000 
 nnoremap <M-t> :tabe term://zsh<CR>
 nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
@@ -118,23 +127,17 @@ tnoremap <C-z> <C-v><C-z>
 tnoremap <C-h> <C-\><C-n>gT
 tnoremap <C-l> <C-\><C-n>gt
 "make alt binding work in terminal
-tnoremap <M-h> h
-tnoremap <M-l> l
 tnoremap <C-k> <Up>
 tnoremap <C-j> <Down>
 
 """ KEY MAPPING
-"Mode changing
+"" Mode changing
 nnoremap ; :
 inoremap jk <Esc>
 cnoremap jk <Esc>
 vnoremap <Cr> <Esc>
 inoremap <c-a> <esc><c-w>
-vnoremap < <gv
-vnoremap > >gv
-"Moving around
-nnoremap <C-M-h> :tabm -1<CR>
-nnoremap <C-M-l> :tabm +1<CR>
+"" Moving around
 nnoremap <C-h> <Esc>gT
 nnoremap <C-l> <Esc>gt
 nnoremap j gj
@@ -144,47 +147,54 @@ nnoremap <C-j> <C-e>
 nnoremap <C-k> <C-y>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
-vnoremap <C-k> dkP<S-v>
-vnoremap <C-j> djP<S-v>
 
-"Moving around (home,end)
+"" Moving around (home,end)
 onoremap <M-h> g0
 onoremap <M-l> g$
 onoremap jk <Esc>
-vnoremap <m-h> g0
-vnoremap <m-l> g$
-nnoremap <m-h> g0
-nnoremap <m-l> g$
+vnoremap <M-h> g0
+vnoremap <M-l> g$
+nnoremap <M-h> g0
+nnoremap <M-l> g$
 inoremap <M-h> <Esc>g0i
 inoremap <M-l> <Esc>g$i
-vnoremap <leader>p y<Esc>:tabe temp<Cr>P:setlocal mouse=<Cr>
-"utils
-nnoremap Q :q!<CR>
+tnoremap <M-h> h
+tnoremap <M-l> l
+
+"" comfortable mapping
+"" toggle comment
 nnoremap <C-/> gcc
+vnoremap < <gv
+vnoremap > >gv
+vnoremap <C-k> dkP<S-v>
+vnoremap <C-j> djP<S-v>
+nnoremap <C-M-h> :tabm -1<CR>
+nnoremap <C-M-l> :tabm +1<CR>
+
 
 """ PLUGIN SETTINGS
-"fzf
+"" fzf
 nnoremap <C-o> :FZF<CR>
 
-"yankstack
+"" yankstack
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
-"nerdtree
+"" nerdtree
 let g:NERDTreeMapActivateNode='<Space>'
 let g:NERDTreeMapChdir='<Cr>'
 let g:nerdtreemaprefreshroot='r'
 let NERDTreeIgnore = ['\.pyc$']
 
-"airline
+"" airline
 let g:airline_theme='wombat'
 
-"ultisnips
+"" ultisnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:ultisnips_python_style = 'numpy'
 
-"neomake
+"" neomake
 augroup NEOMAKE_CHECK
     autocmd!
     autocmd BufWritePost * Neomake
@@ -203,26 +213,26 @@ let g:neomake_warning_sign = {
     \ 'texthl': 'WarningMsg',
     \ }
 
-"vimtex
+"" vimtex
 let g:vimtex_view_general_viewer = 'evince'
 
-"Rainbowparenthesis
+"" Rainbowparenthesis
 let g:rainbow_active = 1
 let g:rainbow_conf = {'ctermfgs': ['1', '2', '3', '6']}
 
-"undotree
+"" undotree
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
 
-"ag
+"" ag
 let g:ag_working_path_mode="r"
 if executable('ag')
   set grepprg=ag
 endif
 
-"deoplete
+"" deoplete
 let g:deoplete#enable_at_startup = 1
 
 """ Functions
