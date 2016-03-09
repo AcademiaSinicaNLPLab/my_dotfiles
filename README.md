@@ -23,8 +23,8 @@ $ ./setup.sh # everything is done
 ## Neovim
 
 ### Features
-1 Automatically install package manager [vim-plug](https://github.com/junegunn/vim-plug)
-2 Plugins:
+1. Automatically install package manager [vim-plug](https://github.com/junegunn/vim-plug)
+2. Plugins:
     1. Syntax checker: neomake
     2. Syntax highlighter: rainbow
     3. Syntax indent: vim-python-pep8-indent', indent-line
