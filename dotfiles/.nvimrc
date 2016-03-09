@@ -54,6 +54,12 @@ Plug 'kana/vim-textobj-user'
 Plug 'ipod825/vim-textobj-ipod825'
 Plug 'tpope/vim-repeat'
 call plug#end()
+
+" Install plugins for the first time
+if empty(glob("~/.nvim/bundle"))
+    :PlugInstall
+    :UpdateRemotePlugin
+endif
 "}}}
 
 
@@ -184,10 +190,6 @@ if has('nvim')
     tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
     tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
     tnoremap <C-z> <C-v><C-z>
-    tnoremap <M-a> <Esc>a
-    tnoremap <M-b> <Esc>b
-    tnoremap <M-d> <Esc>d
-    tnoremap <M-f> <Esc>f
 endif
 "}}}
 

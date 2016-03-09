@@ -10,4 +10,7 @@ echo "Setting neovim"
 [ ! -h ~/.config/nvim ] && ln -s ~/.nvim ~/.config/nvim
 [ ! -h ~/.config/nvim/init.vim ] && ln -s ~/.nvimrc ~/.config/nvim/init.vim
 [ ! -h ~/.nvim/UltiSnips ] && ln -s ~/my_dotfiles/UltiSnips ~/.nvim/UltiSnips
+echo "Installing neovim plugins..."
+nvim -c "q"
+echo "All neovim plugins installed"
 echo "Done"
