@@ -1,6 +1,6 @@
 # One-Key Operation Dotfiles
 
-Settings about my:
+Settings about my
 * .nvimrc
 * .zshrc
 * .gitconfig
@@ -74,3 +74,6 @@ $ nvim .
 4. To execute shell commands, enter terminal mode in a a vertical split window with `Alt+e`
 5. To have two shells in a tab, split a new horizontal shell with `Alt+o`
 6. Have a shell in a new tab with `Alt+t`
+
+### Credits
+TBA
