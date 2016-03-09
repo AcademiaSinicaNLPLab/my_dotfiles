@@ -27,7 +27,7 @@ $ ./setup.sh # everything is done
 2. Plugins:
     1. Syntax checker: neomake
     2. Syntax highlighter: rainbow
-    3. Syntax indent: vim-python-pep8-indent', indent-line
+    3. Syntax indent: vim-python-pep8-indent, indent-line
     4. Git wrapper: vim-fugitive, gv
     5. Snippets: ultisnips, vim-snippets
     6. Fancy UI: vim-airline
@@ -37,26 +37,12 @@ $ ./setup.sh # everything is done
 
 
 ### Work Flow
-Everyone (should) has his own work flow. My nvimrc fits best for my own.
+Everyone (should) has his/her own work flow. My nvimrc fits best for my own.
 
 #### Principles
 1. Use neovim as tmux (unless you want to run program on remote servers after you log off.)
 2. Use tab (:tabedit) instead of window.
 3. The only time to split a new window is when you want to open a terminal (:term)
-
-#### Workflow
-1. Open neovim with nerdtree
-```bash
-$ nvim .
-```
-2. Open file from nerdtree in new tab, one tab for one file (keybinding `t`)
-3. Unfold directory in nerdtree with `<Space>`
-3. When switching between tabs, the working directory will be automatically changed
-4. When you want to execute shell commands, split a new vertical window (keybinding `Alt+e`)
-5. When you need more than two shell in a window, split a new horizontal window (keybinding `Alt+o`)
-6. When you want to execute shell commands in the same tab with nerdtree, first move cursor to the specific directory, then press `Enter` key.  
-The working directory will then changed. And then you just splite a new vertical window (keybinding `Alt+e`)
-7. If you just want a new shell in a new tab, just press `Alt+t`
 
 #### Moving Around
 1. Tab is used intensively. So tab switching deserves a hotkey
@@ -75,3 +61,16 @@ The working directory will then changed. And then you just splite a new vertical
 #### Folding
 * `<Space>` to unfold
 * `<Space>` to open directory in nerdtree
+
+#### Workflow
+1. Open neovim with nerdtree
+```bash
+$ nvim .
+```
+2. Open file from nerdtree in new tab with `t` key
+3. Unfold directory in nerdtree with `<Space>`
+4. In nerdtree, change working directory by moving cursor to the directory and press `<Enter>` (usually, I will then open a vertical shell and then do something in the working directory)
+3. Working directory automatically changes when you switch between tabs
+4. To execute shell commands, enter terminal mode in a a vertical split window with `Alt+e`
+5. To have two shells in a tab, split a new horizontal shell with `Alt+o`
+6. Have a shell in a new tab with `Alt+t`
