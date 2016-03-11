@@ -1,14 +1,20 @@
 ##ANTIGEN
-GEN_HOME=$HOME/.antigen
+GEN_HOME=$HOME/.zgen
 if ! [[ -d $GEN_HOME ]]
 then
-git clone https://github.com/zsh-users/antigen.git $GEN_HOME
+git clone https://github.com/tarjoilija/zgen.git $GEN_HOME
 fi
-source "$GEN_HOME/antigen.zsh"
-antigen bundle tarruda/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
+source "$GEN_HOME/zgen.zsh"
+if ! zgen saved; then
+    echo "Creating a zgen save"
+    zgen load tarruda/zsh-autosuggestions
+    zgen load zsh-users/zsh-completions
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+    zgen load psprint/zsh-navigation-tools
+    zgen save
+fi
+
 
 ##OPTIONS
 #General
