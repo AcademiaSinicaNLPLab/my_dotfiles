@@ -21,7 +21,6 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-Plug 'Yggdroot/indentLine'
 "" Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
@@ -87,7 +86,7 @@ augroup SETTINGS
     " Automatically restore cursor position
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
     " Spell
-    autocmd BufEnter *.tex, *.md setlocal spell
+    autocmd BufEnter *.tex,*.md setlocal spell
 augroup END
 "}}}
 
@@ -282,6 +281,11 @@ let g:indentLine_color_term = 35
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+
+" vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 "}}}
 
 " ============================================================================
