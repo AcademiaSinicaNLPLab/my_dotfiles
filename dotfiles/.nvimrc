@@ -52,6 +52,7 @@ Plug 'rking/ag.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'ipod825/vim-textobj-ipod825'
 Plug 'tpope/vim-repeat'
+Plug 'rhysd/clever-f.vim'
 call plug#end()
 
 " Install plugins for the first time
