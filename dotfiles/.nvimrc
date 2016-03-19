@@ -128,9 +128,8 @@ highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
 highlight SpellBad ctermbg=88
 
 " tailing space
-set list                " Show tailing white space
-set listchars=trail:•   " Show tailing white space
-highlight ExtraWhitespace ctermbg=red
+highlight ExtraWhitespace ctermbg=20  
+match ExtraWhitespace /\s\+$/
 set winminwidth=0
 noremap <Space> za
 vnoremap <Space> zf
