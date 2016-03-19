@@ -33,7 +33,7 @@ $ ./setup.sh # everything is done
     6. Fancy UI: vim-airline
     7. Automatic complteion: deoplete
     8. File browsing: nerdtree, fzf
-    9. Utility: undotree, vim-easy-align, tabular, vim-yankstack, taboo, ag, vim-textobj-user
+    9. Utility: undotree, vim-easy-align, tabular, vim-yankstack, taboo, ag, vim-textobj-user, clever-f.vim
 
 
 ### Work Flow
