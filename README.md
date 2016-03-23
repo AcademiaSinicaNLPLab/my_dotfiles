@@ -1,6 +1,6 @@
-# One-Key Operation Dotfiles
+# One Operation Installation Dotfiles
 
-Settings about my
+Contents:
 * .nvimrc
 * .zshrc
 * .gitconfig
@@ -8,7 +8,7 @@ Settings about my
 * .vimperatorrc
 
 ## Philosophy
-* One-key installation. Simply run
+* One operation installation. Simply run
 ```bash
 $ ./setup.sh # everything is done
 
