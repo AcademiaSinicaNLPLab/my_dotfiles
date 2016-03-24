@@ -12,6 +12,10 @@ noremap j 5<Down>
 noremap k 5<Up>
 noremap ; :
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
+
+autocmd LocationChange .* js modes.passAllKeys = false
+autocmd LocationChange docs\\.google\\.com js modes.passAllKeys = true
+
 source! /home/mingo/.vimperatorrc.local
 
 " vim: set ft=vimperator:
