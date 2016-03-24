@@ -53,6 +53,9 @@ Plug 'kana/vim-textobj-user'
 Plug 'ipod825/vim-textobj-ipod825'
 Plug 'tpope/vim-repeat'
 Plug 'rhysd/clever-f.vim'
+Plug 'terryma/vim-expand-region'
+Plug 'mhinz/vim-grepper'
+
 call plug#end()
 
 " Install plugins for the first time
@@ -81,11 +84,11 @@ augroup SETTINGS
     " Diff setting
     autocmd BufWritePost * if &diff == 1 | diffupdate | endif
     " Enter insert mode when enter terminal
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    " Automatically change directory 
+    autocmd! BufEnter * if &buftype == "terminal" | startinsert | endif
+    " Automatically change directory
     autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
     " Automatically restore cursor position
-    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif 
+    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
     " Spell
     autocmd BufEnter *.tex,*.md setlocal spell
 augroup END
@@ -128,7 +131,7 @@ highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
 highlight SpellBad ctermbg=88
 
 " tailing space
-highlight ExtraWhitespace ctermbg=20  
+highlight ExtraWhitespace ctermbg=20
 match ExtraWhitespace /\s\+$/
 set winminwidth=0
 noremap <Space> za
@@ -161,6 +164,8 @@ nnoremap <C-j> }
 nnoremap <C-k> {
 vnoremap <C-j> }
 vnoremap <C-k> {
+vmap <M-k> <Plug>(expand_region_expand)
+vmap <M-j> <Plug>(expand_region_shrink)
 "}}}
 
 " Moving Around (home,end) {{{
@@ -179,7 +184,7 @@ tnoremap <M-l> l
 
 " Terminal {{{
 if has('nvim')
-    let g:terminal_scrollback_buffer_size=100000 
+    let g:terminal_scrollback_buffer_size=100000
     " Open a new one
     nnoremap <M-t> :tabe term://zsh<CR>
     nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
