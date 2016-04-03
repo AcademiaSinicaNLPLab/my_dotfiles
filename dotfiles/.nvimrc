@@ -55,6 +55,7 @@ Plug 'tpope/vim-repeat'
 Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'mhinz/vim-grepper'
+Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
 
@@ -186,9 +187,14 @@ tnoremap <M-l> l
 if has('nvim')
     let g:terminal_scrollback_buffer_size=100000
     " Open a new one
-    nnoremap <M-t> :tabe term://zsh<CR>
-    nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
-    nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
+    " nnoremap <M-t> :tabe term://zsh<CR>
+    " nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
+    " nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
+    
+    nnoremap <M-t> :TabTerm<Cr>
+    nnoremap <M-o> :STerm<Cr>
+    nnoremap <M-e> :VTerm<Cr>
+    
     " Stay at the last line when exiting terminal
     tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
     tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
@@ -312,4 +318,3 @@ fu! MyFoldText()
   let fillcharcount = winwd - len(line) - len(fdnfo)
   return line . repeat(" ",fillcharcount) . fdnfo
 endfunction
-"}}}

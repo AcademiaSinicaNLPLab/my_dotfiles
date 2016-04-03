@@ -1,7 +1,6 @@
 "3.11.3 (created: 2016/01/30 14:42:44)
 
 inoremap jk <Esc>
-inoremap <C-a> <C-Home><C-S-End>
 inoremap <C-t> <Esc><C-t>
 inoremap <C-w> <Esc><C-w>
 map h <A-Left>
@@ -15,6 +14,7 @@ set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
 autocmd LocationChange .* js modes.passAllKeys = false
 autocmd LocationChange docs\\.google\\.com js modes.passAllKeys = true
+autocmd LocationChange mail\\.google\\.com js modes.passAllKeys = true
 
 source! /home/mingo/.vimperatorrc.local
 
