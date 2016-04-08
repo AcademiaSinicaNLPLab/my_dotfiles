@@ -75,9 +75,6 @@ augroup SETTINGS
     autocmd!
     " Automatically reload vimrc when editing it
     autocmd BufWritePost *vimrc source %:p
-    " Disable rainbow for vimrc
-    autocmd BufEnter *vimrc RainbowToggleOff
-    autocmd BufLeave *vimrc RainbowToggleOn
     " Use mark for vimrc
     autocmd BufEnter *vimrc setlocal foldmethod=marker
     " Help in new tab
@@ -187,13 +184,9 @@ tnoremap <M-l> l
 if has('nvim')
     let g:terminal_scrollback_buffer_size=100000
     " Open a new one
-    " nnoremap <M-t> :tabe term://zsh<CR>
-    " nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
-    " nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
-    
-    nnoremap <M-t> :TabTerm<Cr>
-    nnoremap <M-o> :STerm<Cr>
-    nnoremap <M-e> :VTerm<Cr>
+    nnoremap <M-t> :tabe term://zsh<CR>
+    nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
+    nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
     
     " Stay at the last line when exiting terminal
     tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
