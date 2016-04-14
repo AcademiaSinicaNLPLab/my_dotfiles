@@ -1,20 +1,36 @@
 "3.11.3 (created: 2016/01/30 14:42:44)
 
 inoremap jk <Esc>
+inoremap <C-a> <C-Home><C-S-End>
 inoremap <C-t> <Esc><C-t>
 inoremap <C-w> <Esc><C-w>
 map h <A-Left>
 map l <A-Right>
 map <C-h> :tabp<Return>
 map <C-l> :tabn<Return>
-noremap j 5<Down>
-noremap k 5<Up>
+noremap j 5j
+noremap k 5k
 noremap ; :
+vnoremap l <Right>
+vnoremap h <Left>
+vnoremap <Cr> <Esc>
+
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
 autocmd LocationChange .* js modes.passAllKeys = false
 autocmd LocationChange docs\\.google\\.com js modes.passAllKeys = true
-autocmd LocationChange mail\\.google\\.com js modes.passAllKeys = true
+
+set gui=tabs,nonavigation
+js <<EOF
+liberator.globalVariables['gui_status'] = 'none,tabs';
+toggle_gui = function() {
+    gui_status = liberator.globalVariables['gui_status'];
+    liberator.globalVariables['gui_status'] = (gui_status == 'none,tabs' ? 'none,tabs,navigation' : 'none,tabs');
+    liberator.execute('set gui=' + liberator.globalVariables['gui_status'], null, true);
+}
+EOF
+nmap <leader>g :js toggle_gui()<CR>
+
 
 source! /home/mingo/.vimperatorrc.local
 
