@@ -35,8 +35,8 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "" Technical writing
 Plug 'reedes/vim-lexical'
-Plug 'vim-pandoc/vim-pandoc', {'for': ['tex', 'md']}
-Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['tex', 'md']}
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 "" Completion
 Plug 'Shougo/deoplete.nvim'
 "" File browsing
