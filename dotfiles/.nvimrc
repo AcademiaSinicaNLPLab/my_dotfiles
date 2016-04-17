@@ -206,8 +206,8 @@ nnoremap <C-h> gT
 nnoremap <C-l> gt
 tnoremap <C-h> <C-\><C-n>gT
 tnoremap <C-l> <C-\><C-n>gt
-nnoremap <C-M-h> :tabm -1<CR>
-nnoremap <C-M-l> :tabm +1<CR>
+nnoremap <C-H> :tabm -1<CR>
+nnoremap <C-L> :tabm +1<CR>
 " Window switching
 nnoremap <C-a> <C-w>
 " Up & Down
