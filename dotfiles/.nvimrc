@@ -111,7 +111,7 @@ set wildignore=*/.git/*,*.o,*.class,*.pyc "ignore these files while expanding wi
 set timeoutlen=500
 set ttimeoutlen=0
 set diffopt+=vertical
-set virtualedit=block
+set virtualedit=block,onemore
 "}}}
 
 " Appearance {{{
@@ -206,8 +206,8 @@ nnoremap <C-h> gT
 nnoremap <C-l> gt
 tnoremap <C-h> <C-\><C-n>gT
 tnoremap <C-l> <C-\><C-n>gt
-nnoremap <C-H> :tabm -1<CR>
-nnoremap <C-L> :tabm +1<CR>
+nnoremap <C-m-h> :tabm -1<CR>
+nnoremap <C-m-l> :tabm +1<CR>
 " Window switching
 nnoremap <C-a> <C-w>
 " Up & Down
