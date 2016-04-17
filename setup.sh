@@ -1,16 +1,19 @@
 #!/bin/bash
 
-echo "Setting up the dotfiles..."
-find dotfiles -name ".*" | cut -d / -f 2 | xargs -i ln -sfv ${PWD##*/}/dotfiles/{} ../{}
-find dotfiles -name ".*" | cut -d / -f 2 | xargs -i ln -sfv dotfiles/{} {}
+echo "==Linking dotfiles=="
+find dotfiles -name ".*" | cut -d / -f 2 | xargs -i ln -sf $PWD/dotfiles/{} ~/{}
+find dotfiles ! -path dotfiles -type d | cut -d / -f 2 | xargs -i ln -sf $PWD/dotfiles/{} ~/{}
 
-echo "Setting neovim"
+echo "==Setting vimfx=="
+mv ~/vimfx ~/.config/
+
+echo "==Setting neovim=="
+# Make nvim setting accessible at both ~/.config (mandatory) and ~/.nim (for convience)
 [ ! -d ~/.nvim ] && mkdir ~/.nvim
 [ ! -d ~/.config ] && mkdir ~/.config
+[ ! -h ~/.nvim/UltiSnips ] && ln -s ./UltiSnips ~/.nvim/UltiSnips
 [ ! -h ~/.config/nvim ] && ln -s ~/.nvim ~/.config/nvim
 [ ! -h ~/.config/nvim/init.vim ] && ln -s ~/.nvimrc ~/.config/nvim/init.vim
-[ ! -h ~/.nvim/UltiSnips ] && ln -s ~/my_dotfiles/UltiSnips ~/.nvim/UltiSnips
-echo "Installing neovim plugins..."
-nvim -c "q"
-echo "All neovim plugins installed"
-echo "Done"
+# Installing neovim plugins...
+nvim -c "q" 
+

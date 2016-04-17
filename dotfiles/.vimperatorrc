@@ -4,8 +4,8 @@ inoremap jk <Esc>
 inoremap <C-a> <C-Home><C-S-End>
 inoremap <C-t> <Esc><C-t>
 inoremap <C-w> <Esc><C-w>
-map h <A-Left>
-map l <A-Right>
+noremap H <A-Left>
+noremap L <A-Right>
 map <C-h> :tabp<Return>
 map <C-l> :tabn<Return>
 noremap j 5j
