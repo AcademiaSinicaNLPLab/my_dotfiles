@@ -47,7 +47,7 @@ map('<c-H>', 'tab_move_backward')
 map('<c-L>', 'tab_move_forward')
 map('h', 'history_back')
 map('l', 'history_forward')
-map('H', 'history_list')
+map('gh', 'history_list')
 map('<c-f>', 'scroll_page_down')
 map('<c-b>', 'scroll_page_up')
 map('j', 'scroll_half_page_down')
@@ -55,12 +55,21 @@ map('k', 'scroll_half_page_up')
 map('<c-j>', 'scroll_down')
 map('<c-k>', 'scroll_up')
 map('<c-a-h>', 'tab_select_first')
+map('zp', 'tab_toggle_pinned')
 map('d', 'tab_close')
 map('u', 'tab_restore')
 map('U', 'tab_restore_list')
 map('zf', 'click_browser_element')
+map('<a-h>', 'follow_previous')
+map('<a-l>', 'follow_next')
+
 map('/', 'find_highlight_all')
 map('zw', 'window_new_private')
+
+map('za', 'goto_addons', true)
+map('zc', 'goto_config', true)
+map('zd', 'goto_downloads', true)
+map('zp', 'goto_preferences', true)
 
 vimfx.addCommand({
     name: 'goto_addons',
@@ -69,16 +78,12 @@ vimfx.addCommand({
     vim.window.BrowserOpenAddonsMgr()
 })
 
-
-map('za', 'goto_addons', true)
-
 vimfx.addCommand({
     name: 'goto_config',
     description: 'Config',
 }, ({vim}) => {
     vim.window.switchToTabHavingURI('about:config', true)
 })
-map('zc', 'goto_config', true)
 
 vimfx.addCommand({
     name: 'goto_downloads',
@@ -86,7 +91,6 @@ vimfx.addCommand({
 }, ({vim}) => {
     vim.window.switchToTabHavingURI('about:downloads', true)
 })
-map('zd', 'goto_downloads', true)
 
 vimfx.addCommand({
     name: 'goto_preferences',
@@ -94,4 +98,5 @@ vimfx.addCommand({
 }, ({vim}) => {
     vim.window.openPreferences()
 })
-map('zp', 'goto_preferences', true)
+
+
