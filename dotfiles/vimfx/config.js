@@ -12,7 +12,7 @@ function unmap(cmd)	{
 }
 
 set('hint_chars', 'ehstirnoamupcwlfgdy')
-set('prevent_autofocus', true)
+set('prevent_autofocus', false)
 
 unmap('focus_search_bar')
 unmap('go_to_root')
@@ -43,6 +43,8 @@ unmap('window_new')
 
 map('<c-h>', 'tab_select_previous')
 map('<c-l>', 'tab_select_next')
+map('<force><c-h>', 'tab_select_previous')
+map('<force><c-l>', 'tab_select_next')
 map('<c-H>', 'tab_move_backward')
 map('<c-L>', 'tab_move_forward')
 map('h', 'history_back')
