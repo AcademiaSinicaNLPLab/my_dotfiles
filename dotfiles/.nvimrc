@@ -124,9 +124,10 @@ highlight CursorLine term=bold cterm=bold ctermbg=236
 " menu
 highlight Pmenu term=standout  ctermfg=255  ctermbg=8
 highlight PmenuSel term=standout  ctermfg=255  ctermbg=24
+highlight TabLineSel ctermbg=24
 
 " spell
-highlight SpellBad ctermbg=88
+highlight SpellBad cterm=underline ctermbg=8
 
 " tailing space
 highlight ExtraWhitespace ctermbg=20
@@ -263,6 +264,7 @@ let g:neomake_warning_sign = {
 
 " vimtex
 let g:vimtex_view_general_viewer = 'evince'
+let g:vimtex_indent_enabled = 0
 
 " Rainbowparenthesis
 let g:rainbow_active = 1
