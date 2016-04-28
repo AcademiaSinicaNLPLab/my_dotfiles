@@ -7,6 +7,10 @@ if !filereadable(vim_plug_file)
     silent !mkdir -p ~/.nvim/autoload
     silent !wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.nvim/autoload
 endif
+
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
 " }}}
 
 """ PLUGINS {{{
@@ -19,7 +23,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
-Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+" Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -35,10 +39,11 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "" Technical writing
 Plug 'reedes/vim-lexical'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'asciidoc/vim-asciidoc'
 "" Completion
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': (function('DoRemote'))}
 "" File browsing
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all', 'on': 'FZF' }
@@ -61,8 +66,7 @@ call plug#end()
 
 " Install plugins for the first time
 if empty(glob("~/.nvim/bundle"))
-    :PlugInstall
-    :UpdateRemotePlugin
+    echo "No plugins installed. Please run ':PlugInstall'"
 endif
 "}}}
 
@@ -88,7 +92,7 @@ augroup SETTINGS
     " Automatically restore cursor position
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
     " Spell
-    autocmd BufEnter *.tex,*.md setlocal spell
+    autocmd BufEnter *.tex,*.md,*.adoc setlocal spell
 augroup END
 "}}}
 
@@ -112,6 +116,7 @@ set timeoutlen=500
 set ttimeoutlen=0
 set diffopt+=vertical
 set virtualedit=block,onemore
+set spellfile="~/.nvim/spell/texmath.utf-8.add"
 "}}}
 
 " Appearance {{{
@@ -142,7 +147,6 @@ set expandtab
 "" Complete
 set completeopt=menu,noinsert
 inoremap <expr> <CR> pumvisible() ? "\<C-S-y>" : "\<C-g>u\<CR>"
-"" spell
 "}}}
 
 " ============================================================================
@@ -301,6 +305,10 @@ nmap ga <Plug>(EasyAlign)
 fu! RestoreCursor()
     let l=search('\%' . virtcol('.') . 'v\S', 'bW')
     call cursor(l,0)
+endfunction
+
+function! DoRemote(arg)
+  UpdateRemotePlugins
 endfunction
 
 fu! MyFoldText()
