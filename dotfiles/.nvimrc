@@ -83,7 +83,7 @@ augroup SETTINGS
     autocmd BufWritePost * if &diff == 1 | diffupdate | endif
     " Enter insert mode when enter terminal
     autocmd! BufEnter * if &buftype == "terminal" | startinsert | endif
-    " Automatically change directory
+    " Automatically change directory (enumerate filetypes to avoid conflict conflict with vim-fugitive)
     autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
     " Automatically restore cursor position
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
@@ -102,7 +102,7 @@ set mouse=              " Disable mouse (for using mouse to copy text from to sy
 set copyindent          " Copy the previous indentation on autoindenting
 set ignorecase          " Ignore case when searching
 set smartcase           " Ignore case when searching only if searching pattern contains only lower letters
-set noautoread          " Do note automatically refresh file after modified (use :e instead)
+set noautoread          " Do not automatically refresh file after modified (use :e instead)
 set foldmethod=indent   " Folding with indent
 set foldnestmax=5       " Maximum folding
 set foldtext=MyFoldText() " Show first line when folding
@@ -184,19 +184,17 @@ tnoremap <M-l> <End>
 "}}}
 
 " Terminal {{{
-if has('nvim')
-    let g:terminal_scrollback_buffer_size=100000
-    " Open a new one
-    nnoremap <M-t> :tabe term://zsh<CR>
-    nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
-    nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
-    
-    " Stay at the last line when exiting terminal
-    tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
-    tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
-    tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
-    tnoremap <C-z> <C-v><C-z>
-endif
+let g:terminal_scrollback_buffer_size=100000
+" Open a new one
+nnoremap <M-t> :tabe term://zsh<CR>
+nnoremap <M-o> <C-w>s<C-\><C-n><C-w>j<C-\><C-n>:terminal zsh<CR>
+nnoremap <M-e> <C-w>v<C-\><C-n><C-w>l<C-\><C-n>:terminal zsh<CR>
+
+" Stay at the last line when exiting terminal
+tnoremap <Esc> <C-\><C-n>:call RestoreCursor()<CR>
+tnoremap jk <C-\><C-n>:call RestoreCursor()<CR>
+tnoremap <C-a> <C-\><C-n>:call RestoreCursor()<CR><C-w>
+tnoremap <C-z> <C-v><C-z>
 "}}}
 
 " Handy Mapping {{{
@@ -289,6 +287,7 @@ let g:indentLine_color_term = 35
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 0
 
 " vim-easy-align
 xmap ga <Plug>(EasyAlign)
