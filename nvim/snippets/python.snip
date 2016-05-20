@@ -1,0 +1,5 @@
+snippet parse_arg
+	def parse_arg(argv):
+		parser = argparse.ArgumentParser(description='${0}')
+		parser.add_argument('-${1:i}', '--${2:inpf}', default=None, help='${3:input file}')
+		return parser.parse_args(argv[1:])

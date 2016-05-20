@@ -59,6 +59,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'ipod825/vim-textobj-ipod825'
 Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 't9md/vim-quickhl'
 
 call plug#end()
 
@@ -72,28 +73,6 @@ endif
 " ============================================================================
 " GENERAL SETTINGS
 " ============================================================================
-" Main Autocmd Group {{{
-augroup SETTINGS
-    autocmd!
-    " Automatically reload vimrc when editing it
-    autocmd BufWritePost *vimrc source %:p
-    " Use mark for vimrc
-    autocmd BufEnter *vimrc setlocal foldmethod=marker
-    " Help in new tab
-    autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
-    " Diff setting
-    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
-    " Enter insert mode when enter terminal
-    autocmd! BufEnter * if &buftype == "terminal" | startinsert | endif
-    " Automatically change directory (enumerate filetypes to avoid conflict conflict with vim-fugitive)
-    autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
-    " Automatically restore cursor position
-    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-    " Spell
-    autocmd BufEnter *.tex,*.md,*.adoc setlocal spell
-augroup END
-"}}}
-
 " Main Setting {{{
 filetype on             " Enable filetype detection
 filetype indent on      " Enable filetype-specific indenting
@@ -152,6 +131,31 @@ set expandtab
 set completeopt=menu,noinsert
 inoremap <expr> <CR> pumvisible() ? "\<C-S-y>" : "\<C-g>u\<CR>"
 "}}}
+"
+" Main Autocmd Group {{{
+augroup SETTINGS
+    autocmd!
+    " Automatically reload vimrc when editing it
+    autocmd BufWritePost *vimrc source %:p
+    " Use mark for vimrc
+    autocmd BufEnter *vimrc setlocal foldmethod=marker
+    " Help in new tab
+    autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
+    " Diff setting
+    autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+    " Enter insert mode when enter terminal
+    autocmd! BufEnter * if &buftype == "terminal" | startinsert | endif
+    " Automatically change directory (enumerate filetypes to avoid conflict conflict with vim-fugitive)
+    autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
+    " Automatically restore cursor position
+    autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+    " Spell
+    autocmd BufEnter *.tex,*.md,*.adoc setlocal spell
+    " Tab
+    autocmd BufEnter *.snip set noexpandtab
+    autocmd BufLeave *.snip set expandtab
+augroup END
+"}}}
 
 " ============================================================================
 " KEY MAPPING
@@ -206,7 +210,7 @@ tnoremap <C-z> <C-v><C-z>
 "}}}
 
 " Handy Mapping {{{
-nnoremap <C-/> gcc " Toggle comment
+noremap <C-/> <Plug>NERDCommenterToggle
 " Keep in visual mode
 vnoremap < <gv
 vnoremap > >gv
@@ -251,6 +255,8 @@ let g:airline_theme='wombat'
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+let g:neosnippet#snippets_directory='~/.nvim/snippets'
+cnoreabbrev NeoSnippetEdit NeoSnippetEdit -split -vertical
 
 " SuperTab like snippets behavior.
 "imap <expr><TAB>
@@ -317,6 +323,9 @@ let g:deoplete#enable_ignore_case = 0
 " vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" quickhl
+nmap <leader>h <Plug>(quickhl-manual-this)
 
 "}}}
 
