@@ -38,7 +38,7 @@ Plug 'vim-scripts/Mouse-Toggle'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "" Technical writing
-Plug 'reedes/vim-lexical'
+" Plug 'reedes/vim-lexical'
 " Plug 'vim-pandoc/vim-pandoc'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'asciidoc/vim-asciidoc'
@@ -46,7 +46,6 @@ Plug 'asciidoc/vim-asciidoc'
 Plug 'Shougo/deoplete.nvim', {'do': (function('DoRemote'))}
 "" File browsing
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all', 'on': 'FZF' }
 "" General utils
 Plug 'mbbill/undotree'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
@@ -56,10 +55,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'rking/ag.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'ipod825/vim-textobj-ipod825'
-Plug 'tpope/vim-repeat'
 Plug 'rhysd/clever-f.vim'
-Plug 'terryma/vim-expand-region'
-Plug 'mhinz/vim-grepper'
 Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
@@ -167,22 +163,24 @@ nnoremap <C-j> }
 nnoremap <C-k> {
 vnoremap <C-j> }
 vnoremap <C-k> {
-vmap <M-k> <Plug>(expand_region_expand)
-vmap <M-j> <Plug>(expand_region_shrink)
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+tnoremap <C-M-h> <Left>
+tnoremap <C-M-l> <Right>
 "}}}
 
 " Moving Around (home,end) {{{
-onoremap <M-h> g0
-onoremap <M-l> g$
+onoremap <M-h> g^
+onoremap <M-l> g_
 onoremap jk <Esc>
-vnoremap <M-h> g0
-vnoremap <M-l> g$
-nnoremap <M-h> g0
-nnoremap <M-l> g$
-inoremap <M-h> <Esc>g0i
-inoremap <M-l> <Esc>g$i
-tnoremap <M-h> h
-tnoremap <M-l> l
+vnoremap <M-h> g^
+vnoremap <M-l> g_
+nnoremap <M-h> g^
+nnoremap <M-l> g_
+inoremap <M-h> <Esc>g^i
+inoremap <M-l> <Esc>g_i
+tnoremap <M-h> <Home>
+tnoremap <M-l> <End>
 "}}}
 
 " Terminal {{{
@@ -226,9 +224,6 @@ tnoremap <C-k> <Up>
 " PLUGIN SETTINGS
 " ============================================================================
 " Add Plugin Setting Here {{{
-" fzf
-nnoremap <C-o> :FZF<CR>
-
 " yankstack
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
@@ -246,6 +241,9 @@ let g:airline_theme='wombat'
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger = '<Tab>'
 let g:ultisnips_python_style = 'numpy'
+
+" auto-pairs
+let g:AutoPairsMapCh = 0
 
 " neomake
 augroup NEOMAKE_CHECK
