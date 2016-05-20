@@ -29,8 +29,10 @@ Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 "" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 "" Mapping
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'vim-scripts/Mouse-Toggle'
@@ -129,6 +131,12 @@ highlight TabLineSel ctermbg=24
 
 " spell
 highlight SpellBad cterm=underline ctermbg=8
+
+" diff
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 
 " tailing space
 highlight ExtraWhitespace ctermbg=20
@@ -235,10 +243,27 @@ let NERDTreeIgnore = ['\.pyc$']
 " airline
 let g:airline_theme='wombat'
 
-" ultisnips
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger = '<Tab>'
-let g:ultisnips_python_style = 'numpy'
+" " ultisnips
+" let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsExpandTrigger = '<Tab>'
+" let g:ultisnips_python_style = 'numpy'
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " auto-pairs
 let g:AutoPairsMapCh = 0
