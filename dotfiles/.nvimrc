@@ -247,14 +247,8 @@ let NERDTreeIgnore = ['\.pyc$']
 " airline
 let g:airline_theme='wombat'
 
-" " ultisnips
-" let g:UltiSnipsEditSplit="vertical"
-" let g:UltiSnipsExpandTrigger = '<Tab>'
-" let g:ultisnips_python_style = 'numpy'
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" neosnippet
+imap <C-s>     <Plug>(neosnippet_expand_or_jump)
 let g:neosnippet#snippets_directory='~/.nvim/snippets'
 cnoreabbrev NeoSnippetEdit NeoSnippetEdit -split -vertical
 

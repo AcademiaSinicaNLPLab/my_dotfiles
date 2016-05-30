@@ -1,4 +1,11 @@
+snippet     #!
+options     head
+	#!/usr/bin/env python
+	# -*- coding: utf-8 -*-
+	${0}
+
 snippet parse_arg
+abbr parse
 	def parse_arg(argv):
 		parser = argparse.ArgumentParser(description='${0}')
 		parser.add_argument('-${1:i}', '--${2:inpf}', default=None, help='${3:input file}')
