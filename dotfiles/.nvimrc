@@ -228,6 +228,8 @@ cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 tnoremap <C-j> <Down>
 tnoremap <C-k> <Up>
+" leaders
+nnoremap <leader>n :set nonumber!<CR>
 "}}}
 
 " ============================================================================
@@ -248,17 +250,21 @@ let NERDTreeIgnore = ['\.pyc$']
 let g:airline_theme='wombat'
 
 " neosnippet
-imap <C-s>     <Plug>(neosnippet_expand_or_jump)
 let g:neosnippet#snippets_directory='~/.nvim/snippets'
 cnoreabbrev NeoSnippetEdit NeoSnippetEdit -split -vertical
-
 " SuperTab like snippets behavior.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+
+vmap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\>"
+
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
 
 " For conceal markers.
 if has('conceal')
