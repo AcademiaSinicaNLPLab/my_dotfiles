@@ -60,6 +60,7 @@ Plug 'ipod825/vim-textobj-ipod825'
 Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-quickhl'
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
@@ -337,7 +338,10 @@ let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<C-q>'
+let g:multi_cursor_quit_key='<Esc>'
+
+" Ctrlp
+let g:ctrlp_map = '<C-o>'
 
 " quickhl
 nmap <leader>h <Plug>(quickhl-manual-this)
