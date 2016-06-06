@@ -237,6 +237,8 @@ nnoremap <leader>n :set nonumber!<CR>
 " ============================================================================
 " Add Plugin Setting Here {{{
 " yankstack
+let g:yankstack_map_keys = 0
+call yankstack#setup()
 nmap <c-p> <Plug>yankstack_substitute_older_paste
 nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
@@ -272,7 +274,13 @@ if has('conceal')
 endif
 
 " auto-pairs
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutJump = ''
 let g:AutoPairsMapCh = 0
+let g:AutoPairsMapCR = 0
+let g:AutoPairsCenterLine = 0
+let g:AutoPairsMapSpace = 0
+let g:AutoPairsMultilineClose = 0
 
 " neomake
 augroup NEOMAKE_CHECK
@@ -323,6 +331,13 @@ let g:deoplete#enable_ignore_case = 0
 " vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" vim-mutiple-cursors
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<C-q>'
 
 " quickhl
 nmap <leader>h <Plug>(quickhl-manual-this)
