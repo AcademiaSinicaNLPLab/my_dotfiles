@@ -10,3 +10,7 @@ abbr parse
 		parser = argparse.ArgumentParser(description='${0}')
 		parser.add_argument('-${1:i}', '--${2:inpf}', default=None, help='${3:input file}')
 		return parser.parse_args(argv[1:])
+
+snippet     raise
+abbr        class Class(...): ...
+	raise ${1:Exception}("${2}")${0}
