@@ -228,8 +228,10 @@ cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 tnoremap <C-j> <Down>
 tnoremap <C-k> <Up>
-" leaders
+" handy mappings
 nnoremap <leader>n :set nonumber!<CR>
+tnoremap <F5> <C-\><C-n>:call PudbMode()<CR>i
+nnoremap <F5> <C-\><C-n>:call PudbMode()<CR>
 "}}}
 
 " ============================================================================
@@ -337,7 +339,7 @@ let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<C-q>'
+let g:multi_cursor_quit_key='<Esc>'
 
 " quickhl
 nmap <leader>h <Plug>(quickhl-manual-this)
@@ -366,4 +368,20 @@ fu! MyFoldText()
   let line =  strpart(getline(v:foldstart), 0 , winwd - len(fdnfo))
   let fillcharcount = winwd - len(line) - len(fdnfo)
   return line . repeat(" ",fillcharcount) . fdnfo
+endfunction
+
+
+fu! PudbMode()
+    if !exists("s:enterpudb")
+        let s:enterpudb = 0
+    endif
+    if s:enterpudb==0
+        let s:enterpudb=1
+        echomsg "Entering pudb mode"
+        set timeoutlen=10
+    else
+        let s:enterpudb=0
+        echomsg "Exiting pudb mode"
+        set timeoutlen=500
+    endif
 endfunction
