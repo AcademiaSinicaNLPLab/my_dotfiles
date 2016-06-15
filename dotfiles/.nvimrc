@@ -60,7 +60,8 @@ Plug 'ipod825/vim-textobj-ipod825'
 Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-quickhl'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -342,11 +343,26 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-" Ctrlp
-let g:ctrlp_map = '<C-o>'
-
 " quickhl
 nmap <leader>h <Plug>(quickhl-manual-this)
+
+" fzf
+let g:fzf_buffers_jump = 1
+function! s:find_root()
+  for vcs in ['.git']
+    let dir = finddir(vcs.'/..', ';')
+    if !empty(dir)
+      execute 'FZF' dir
+      return
+    endif
+  endfor
+  FZF
+endfunction
+
+command! FZFR call s:find_root()
+nnoremap <C-o> :FZFR<Cr>
+inoremap <C-o> <Esc>:FZFR<Cr>
+tnoremap <C-o> <C-\><C-n>:FZFR<Cr>
 
 "}}}
 
