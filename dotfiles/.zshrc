@@ -11,7 +11,6 @@ if ! zgen saved; then
     zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
-    zgen load psprint/zsh-navigation-tools
     zgen save
 fi
 
@@ -90,16 +89,29 @@ nvimf() {
 
 # fd - cd to selected directory
 fd() {
-  local dir
-  dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
+    local dir
+    local root
+
+    if [ $1 ]; then
+        root=$1
+    else
+        root=~
+    fi
+    dir=$(find $root -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
+    cd "$dir"
 }
 
 # fda - including hidden directories
 fda() {
-  local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+    local dir
+    local root
+
+    if [ $1 ]; then
+        root=$1
+    else
+        root=~
+    fi
+    dir=$(find $root -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # fh - repeat history

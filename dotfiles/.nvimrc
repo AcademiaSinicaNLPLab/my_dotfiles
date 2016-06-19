@@ -148,7 +148,7 @@ augroup SETTINGS
     " Enter insert mode when enter terminal
     autocmd! BufEnter * if &buftype == "terminal" | startinsert | endif
     " Automatically change directory (enumerate filetypes to avoid conflict conflict with vim-fugitive)
-    autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc silent! lcd %:p:h
+    autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc,*.md silent! lcd %:p:h
     " Automatically restore cursor position
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
     " Spell
