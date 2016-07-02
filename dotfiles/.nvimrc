@@ -1,4 +1,4 @@
-" .nvimrc of AcademiaSinicaNLPLAb modified from ipod825's nvimrc {{{
+" .nvimrc of ipod825 {{{
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
