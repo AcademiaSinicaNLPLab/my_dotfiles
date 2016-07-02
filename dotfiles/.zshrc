@@ -1,4 +1,14 @@
 ##ANTIGEN
+if [[ $TERM != "xterm-256color" ]]
+then
+    echo "TERM environment is not set to xterm-256color. If puttye is used, please see http://superuser.com/questions/436910/emulate-256-colors-in-putty-terminal"
+fi
+
+if ! [[ -d ~/.config ]]
+then
+        bash ~/my_dotfiles/setup.sh
+fi
+
 GEN_HOME=$HOME/.zgen
 if ! [[ -d $GEN_HOME ]]
 then
@@ -58,7 +68,7 @@ bindkey "^[l" end-of-line
 
 #PS1
 host_prompt="%F{39}%m"
-set_ps1() { 
+set_ps1() {
     sedcmd="s/\/\home\/$USER/~/g"
     directory_prompt=":%F{111}"`pwd | sed $sedcmd | sed "s:\([^/]\)[^/]*/:\1/:g"`
     #VI_MODE="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
@@ -79,94 +89,3 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-se
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 ZSH_HIGHLIGHT_STYLES[globbing]=fg=11
-
-# FZF
-# vimf - Open selected file in Vim
-nvimf() {
-  local file
-  file=$(fzf --query="$1") && nvim "$file"
-}
-
-# fd - cd to selected directory
-fd() {
-    local dir
-    local root
-
-    if [ $1 ]; then
-        root=$1
-    else
-        root=~
-    fi
-    dir=$(find $root -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
-    cd "$dir"
-}
-
-# fda - including hidden directories
-fda() {
-    local dir
-    local root
-
-    if [ $1 ]; then
-        root=$1
-    else
-        root=~
-    fi
-    dir=$(find $root -type d 2> /dev/null | fzf +m) && cd "$dir"
-}
-
-# fh - repeat history
-fh() {
-  eval $(history | fzf +s | sed 's/ *[0-9]* *//')
-}
-
-# fkill - kill process
-fkill() {
-  ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9}
-}
-
-# fbr - checkout git branch
-fbr() {
-  local branches branch
-  branches=$(git branch) &&
-  branch=$(echo "$branches" | fzf +s +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //")
-}
-
-# fco - checkout git commit
-fco() {
-  local commits commit
-  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf +s +m -e) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
-}
-
-# ftags - search ctags
-ftags() {
-  local line
-  [ -e tags ] &&
-    line=$(grep -v "^!" tags | cut -f1-3 | cut -c1-80 | fzf --nth=1) &&
-    $EDITOR $(cut -f2 <<< "$line")
-}
-
-# fq1 [QUERY]
-# - Immediately select the file when there's only one match.
-#   If not, start the fuzzy finder as usual.
-fq1() {
-  local lines
-  lines=$(fzf --filter="$1" --no-sort)
-  if [ -z "$lines" ]; then
-    return 1
-  elif [ $(wc -l <<< "$lines") -eq 1 ]; then
-    echo "$lines"
-  else
-    echo "$lines" | fzf --query="$1"
-  fi
-}
-
-# fe [QUERY]
-# - Open the selected file with the default editor
-#   (Bypass fuzzy finder when there's only one match)
-fe() {
-  local file
-  file=$(fq1 "$1") && ${EDITOR:-nvim} "$file"
-}

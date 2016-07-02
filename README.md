@@ -5,7 +5,6 @@ Contents:
 * .zshrc
 * .gitconfig
 * .tmux.conf
-* .vimperatorrc
 
 ## Philosophy
 * One operation installation. Simply run
@@ -29,11 +28,11 @@ $ ./setup.sh # everything is done
     2. Syntax highlighter: rainbow
     3. Syntax indent: vim-python-pep8-indent, indent-line
     4. Git wrapper: vim-fugitive, gv
-    5. Snippets: ultisnips, vim-snippets
+    5. Snippets: neosnippet, neosnippet-snippets
     6. Fancy UI: vim-airline
     7. Automatic complteion: deoplete
     8. File browsing: nerdtree, fzf
-    9. Utility: undotree, vim-easy-align, tabular, vim-yankstack, taboo, ag, vim-textobj-user, clever-f.vim
+    9. Utility: undotree, vim-easy-align, tabular, vim-yankstack, taboo, vim-multiple-cursors
 
 
 ### Work Flow

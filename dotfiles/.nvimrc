@@ -1,4 +1,4 @@
-" .nvimrc of ipod825 {{{
+" .nvimrc of AcademiaSinicaNLPLAb modified from ipod825's nvimrc {{{
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
@@ -23,14 +23,11 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'luochen1990/rainbow'
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
-" Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 "" Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 "" Snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 "" Mapping
@@ -39,11 +36,6 @@ Plug 'vim-scripts/Mouse-Toggle'
 "" Appearance
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"" Technical writing
-" Plug 'reedes/vim-lexical'
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'asciidoc/vim-asciidoc'
 "" Completion
 Plug 'Shougo/deoplete.nvim', {'do': (function('DoRemote'))}
 "" File browsing
@@ -54,10 +46,6 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'gcmt/taboo.vim'
-Plug 'rking/ag.vim'
-Plug 'kana/vim-textobj-user'
-Plug 'ipod825/vim-textobj-ipod825'
-Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-quickhl'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -96,6 +84,9 @@ set ttimeoutlen=0
 set diffopt+=vertical
 set virtualedit=block,onemore
 set spellfile="~/.nvim/spell/texmath.utf-8.add"
+if has('unix')
+    set t_Co=256
+endif
 "}}}
 
 " Appearance {{{
@@ -241,10 +232,12 @@ nnoremap <F5> <C-\><C-n>:call PudbMode()<CR>
 " ============================================================================
 " Add Plugin Setting Here {{{
 " yankstack
-let g:yankstack_map_keys = 0
-call yankstack#setup()
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-n> <Plug>yankstack_substitute_newer_paste
+if exists("yankstack#setup")
+    let g:yankstack_map_keys = 0
+    call yankstack#setup()
+    nmap <c-p> <Plug>yankstack_substitute_older_paste
+    nmap <c-n> <Plug>yankstack_substitute_newer_paste
+endif
 
 " nerdtree
 let g:NERDTreeMapActivateNode='<Space>'
@@ -373,10 +366,6 @@ tnoremap <C-o> <C-\><C-n>:FZFR<Cr>
 fu! RestoreCursor()
     let l=search('\%' . virtcol('.') . 'v\S', 'bW')
     call cursor(l,0)
-endfunction
-
-function! DoRemote(arg)
-  UpdateRemotePlugins
 endfunction
 
 fu! MyFoldText()

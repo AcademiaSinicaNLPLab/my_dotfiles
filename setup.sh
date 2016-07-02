@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "==Linking dotfiles=="
-find dotfiles -name ".*" | cut -d / -f 2 | xargs -i ln -sf $PWD/dotfiles/{} ~/{}
-find dotfiles ! -path dotfiles -type d | cut -d / -f 2 | xargs -i ln -sf $PWD/dotfiles/{} ~/{}
+find ~/my_dotfiles/dotfiles -name ".*" | cut -d / -f 6 | xargs -i ln -sf $HOME/my_dotfiles/dotfiles/{} ~/{}
+find ~/my_dotfiles/dotfiles ! -path dotfiles -type d | cut -d / -f 6 | xargs -i ln -sf $HOME/my_dotfiles/dotfiles/{} ~/{}
 
 echo "==Setting vimfx=="
 mv ~/vimfx ~/.config/
