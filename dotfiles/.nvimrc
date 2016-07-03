@@ -265,11 +265,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \: "\<TAB>"
 
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
 " auto-pairs
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutJump = ''
@@ -311,15 +306,6 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
-
-" ag
-let g:ag_working_path_mode="r"
-if executable('ag')
-  set grepprg=ag
-endif
-
-" indentLine
-let g:indentLine_color_term = 35
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
