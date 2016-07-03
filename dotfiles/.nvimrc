@@ -1,4 +1,5 @@
 " .nvimrc of ipod825 {{{
+silent source ~/.nvim_site.vim
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
@@ -273,7 +274,8 @@ let g:AutoPairsMapCR = 0
 let g:AutoPairsCenterLine = 0
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMultilineClose = 0
-
+let g:AutoPairs= {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', "$":"$", '<':'>'}
+let g:AutoPairsParens = {'(':')', '[':']', '{':'}', '<':'>'}
 " neomake
 augroup NEOMAKE_CHECK
     autocmd!
