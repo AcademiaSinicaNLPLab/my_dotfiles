@@ -1,5 +1,5 @@
 " .nvimrc of ipod825 {{{
-silent source ~/.nvim_site.vim
+silent! source ~/.nvim_site.vim
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
