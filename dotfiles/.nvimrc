@@ -167,6 +167,8 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <C-j> }
 nnoremap <C-k> {
+nnoremap L ;
+nnoremap H ,
 vnoremap <C-j> }
 vnoremap <C-k> {
 inoremap <C-h> <Left>
