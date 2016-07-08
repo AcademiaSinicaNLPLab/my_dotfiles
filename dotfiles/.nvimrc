@@ -300,6 +300,21 @@ let g:neomake_warning_sign = {
 " vimtex
 let g:vimtex_view_general_viewer = 'evince'
 let g:vimtex_indent_enabled = 0
+let g:vimtex_fold_enabled = 1
+if !exists('g:deoplete#omni_patterns')
+    let g:deoplete#omni_patterns = {}
+endif
+let g:deoplete#omni_patterns.tex =
+    \ '\v\\%('
+    \ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+    \ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(}\{)?)'
+    \ . '|hyperref\s*\[[^]]*'
+    \ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+    \ . '|%(include%(only)?|input)\s*\{[^}]*'
+    \ . '|\a*(gls|Gls|GLS)(pl)?\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+    \ . '|includepdf%(\s*\[[^]]*\])?\s*\{[^}]*'
+    \ . '|includestandalone%(\s*\[[^]]*\])?\s*\{[^}]*'
+    \ . ')\m'
 
 " Rainbowparenthesis
 let g:rainbow_active = 1
