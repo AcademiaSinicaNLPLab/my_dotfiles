@@ -1,5 +1,4 @@
 " .nvimrc of ipod825 {{{
-silent! source ~/.nvim_site.vim
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
@@ -51,6 +50,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 't9md/vim-quickhl'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
+
 
 call plug#end()
 
@@ -235,12 +236,8 @@ nnoremap <F5> <C-\><C-n>:call PudbMode()<CR>
 " ============================================================================
 " Add Plugin Setting Here {{{
 " yankstack
-if exists("yankstack#setup")
-    let g:yankstack_map_keys = 0
-    call yankstack#setup()
-    nmap <c-p> <Plug>yankstack_substitute_older_paste
-    nmap <c-n> <Plug>yankstack_substitute_newer_paste
-endif
+nmap <c-p> <Plug>yankstack_substitute_older_paste
+nmap <c-n> <Plug>yankstack_substitute_newer_paste
 
 " nerdtree
 let g:NERDTreeMapActivateNode='<Space>'
@@ -356,6 +353,9 @@ function! s:find_root()
   endfor
   FZF
 endfunction
+
+" vim-sneak
+let g:sneak#streak = 1
 
 command! FZFR call s:find_root()
 nnoremap <C-o> :FZFR<Cr>
