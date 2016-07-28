@@ -7,31 +7,27 @@ Contents:
 * .tmux.conf
 
 ## Philosophy
-* One operation installation. Simply run
+* One key installation. Simply run
 ```bash
-$ ./setup.sh # everything is done
-
+$ ./setup.sh
 ```
 
 * No framework (particularly, oh-my-zsh). Control everything yourself.
 
-* One setting one file. Every setting file should work well itself.
-    * Use package manager for [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) and zsh
+* Cold start with package manager.
+    * [vim-plug ](https://github.com/junegunn/vim-plug) for [neovim]    (https://github.com/neovim/neovim/wiki/Installing-Neovim) 
+    * [zgen](https://github.com/tarjoilija/zgen) for zsh
 
 
 ## Neovim
 
-### Features
-1. Automatically install package manager [vim-plug](https://github.com/junegunn/vim-plug)
-2. Plugins: see [nvimrc](dotfiles/.nvimrc) 
 
-### Work Flow
 Everyone (should) has his/her own work flow. My nvimrc fits best for my own.
 
 #### Principles
 1. Use neovim as tmux (unless you want to run program on remote servers after you log off.)
 2. Use tab (:tabedit) instead of window.
-3. The only time to split a new window is when you want to open a terminal (:term)
+3. The only time to split a new window is when you want to open a terminal (:term), or sometime when you watn to compare code.
 
 #### Moving Around
 1. Tab is used intensively. So tab switching deserves a hotkey
@@ -41,14 +37,14 @@ Everyone (should) has his/her own work flow. My nvimrc fits best for my own.
     * Exit commandmode, insertmode, terminalmode, back to normal mode using `jk` (use `Enter` for visual mode instead)
     * `Alt+h`, `Alt+l` to move to line begin or line end (this also work for visual mode, and my zshrc also has binding to make this work for terminalmode)
     * `ctrl+j`, `ctrl+k` to move to the next or previous blank line (the same in visual mode)
-    * `ctrl+j`, `ctrl+k` bind to <Down> or <Up> in commandmode and terminalmode
+    * `ctrl+j`, `ctrl+k` bind to <Down> or <Up> in command mode and terminal mode
 
 #### File browsing
-Use FZF
-1. For git repo. `<C-o>` is bind to `Files` command
+Use FZF  
+1. For git repo. `<C-o>` is bind to `Files` command  
 2. (normal)`go` is bind to `BTags`  command
 
-Use nerdtree
+Use nerdtree  
 see below
 
 #### Terminal mode
@@ -68,7 +64,7 @@ $ nvim .
 3. Unfold directory in nerdtree with `<Space>`
 4. In nerdtree, change working directory by moving cursor to the directory and press `<Enter>` (usually, I will then open a vertical shell and then do something in the working directory)
 3. Working directory automatically changes when you switch between tabs
-4. To execute shell commands, enter terminal mode in a a vertical split window with `Alt+e`
+4. To execute shell commands, enter terminal mode in a vertical split window with `Alt+e`
 5. To have two shells in a tab, split a new horizontal shell with `Alt+o`
 6. Have a shell in a new tab with `Alt+t`
 

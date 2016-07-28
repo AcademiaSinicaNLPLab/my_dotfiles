@@ -42,11 +42,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "" technical writing
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'JamshedVesuna/vim-markdown-preview'
 "" General utils
 Plug 'mbbill/undotree' " unlimited undo
 Plug 'maxbrunsfeld/vim-yankstack' " clipboard stack
 Plug 'gcmt/taboo.vim' " reasonable tab displayed name
-Plug 't9md/vim-quickhl' " manual (multiple) highlighing words 
+Plug 't9md/vim-quickhl' " manual (multiple) highlighing words
 Plug 'justinmk/vim-sneak'
 
 
@@ -354,6 +355,10 @@ let g:fzf_action = {
 
 " vim-sneak
 let g:sneak#streak = 1
+
+" vim-markdown-preview
+" let vim_markdown_preview_browser='Firefox'
+let vim_markdown_preview_github=1
 
 
 "}}}
