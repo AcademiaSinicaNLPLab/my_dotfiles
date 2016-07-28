@@ -15,41 +15,38 @@ endfunction
 
 """ PLUGINS {{{
 call plug#begin('~/.nvim/bundle')
-"" Coding
-Plug 'tomtom/tcomment_vim'
-Plug 'majutsushi/tagbar'
-Plug 'benekastah/neomake'
-Plug 'jiangmiao/auto-pairs'
-Plug 'luochen1990/rainbow'
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'chrisbra/csv.vim', {'for': 'csv'}
-Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-"" Git
+"" Coding utils
+Plug 'tomtom/tcomment_vim'          " commenter
+Plug 'benekastah/neomake'           " syntax check
+Plug 'luochen1990/rainbow'          " parenthnes highighlight
+Plug 'jiangmiao/auto-pairs'         " parenthnes pairing
+Plug 'Shougo/neosnippet'            " snippets engine
+Plug 'Shougo/neosnippet-snippets'   " snippets collection
+Plug 'terryma/vim-multiple-cursors' " helpful for refactoring code
+Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}      " python indent
+Plug 'Shougo/deoplete.nvim', {'do': (function('DoRemote'))} " auto completion
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " align code - helpful for latex table
+"" Git wrapper
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
-"" Snippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 "" Mapping
-Plug 'nelstrom/vim-visual-star-search'
+Plug 'nelstrom/vim-visual-star-search' " * in visual mode
 Plug 'vim-scripts/Mouse-Toggle'
 "" Appearance
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"" Completion
-Plug 'Shougo/deoplete.nvim', {'do': (function('DoRemote'))}
+Plug 'bling/vim-airline' " status line
+Plug 'vim-airline/vim-airline-themes' " extra status line theme
 "" File browsing
 Plug 'scrooloose/nerdtree'
-"" General utils
-Plug 'mbbill/undotree'
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'gcmt/taboo.vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 't9md/vim-quickhl'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+"" technical writing
+Plug 'lervag/vimtex', {'for': 'tex'}
+"" General utils
+Plug 'mbbill/undotree' " unlimited undo
+Plug 'maxbrunsfeld/vim-yankstack' " clipboard stack
+Plug 'gcmt/taboo.vim' " reasonable tab displayed name
+Plug 't9md/vim-quickhl' " manual (multiple) highlighing words 
 Plug 'justinmk/vim-sneak'
 
 
@@ -243,7 +240,7 @@ nmap <c-n> <Plug>yankstack_substitute_newer_paste
 let g:NERDTreeMapActivateNode='<Space>'
 let g:NERDTreeMapChdir='<Cr>'
 let g:nerdtreemaprefreshroot='r'
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['__pycache__$[[dir]]', '\.pyc$']
 
 " airline
 let g:airline_theme='wombat'
@@ -342,25 +339,22 @@ let g:multi_cursor_quit_key='<Esc>'
 nmap <leader>h <Plug>(quickhl-manual-this)
 
 " fzf
-let g:fzf_buffers_jump = 1
-function! s:find_root()
-  for vcs in ['.git']
-    let dir = finddir(vcs.'/..', ';')
-    if !empty(dir)
-      execute 'FZF' dir
-      return
-    endif
-  endfor
-  FZF
-endfunction
+nmap <leader><tab> <plug>(fzf-maps-n)
+nnoremap <C-o> :GFiles<Cr>
+inoremap <C-o> <Esc>:GFiles<Cr>
+tnoremap <C-o> <C-\><C-n>:GFiles<Cr>
+
+nnoremap go :BTags<Cr>
+
+let g:fzf_action = {
+  \ 'space': 'tab drop',
+  \ 'enter': 'drop',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 " vim-sneak
 let g:sneak#streak = 1
 
-command! FZFR call s:find_root()
-nnoremap <C-o> :FZFR<Cr>
-inoremap <C-o> <Esc>:FZFR<Cr>
-tnoremap <C-o> <C-\><C-n>:FZFR<Cr>
 
 "}}}
 

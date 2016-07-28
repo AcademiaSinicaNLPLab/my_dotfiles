@@ -23,17 +23,7 @@ $ ./setup.sh # everything is done
 
 ### Features
 1. Automatically install package manager [vim-plug](https://github.com/junegunn/vim-plug)
-2. Plugins:
-    1. Syntax checker: neomake
-    2. Syntax highlighter: rainbow
-    3. Syntax indent: vim-python-pep8-indent, indent-line
-    4. Git wrapper: vim-fugitive, gv
-    5. Snippets: neosnippet, neosnippet-snippets
-    6. Fancy UI: vim-airline
-    7. Automatic complteion: deoplete
-    8. File browsing: nerdtree, fzf
-    9. Utility: undotree, vim-easy-align, tabular, vim-yankstack, taboo, vim-multiple-cursors
-
+2. Plugins: see [nvimrc](dotfiles/.nvimrc) 
 
 ### Work Flow
 Everyone (should) has his/her own work flow. My nvimrc fits best for my own.
@@ -52,6 +42,14 @@ Everyone (should) has his/her own work flow. My nvimrc fits best for my own.
     * `Alt+h`, `Alt+l` to move to line begin or line end (this also work for visual mode, and my zshrc also has binding to make this work for terminalmode)
     * `ctrl+j`, `ctrl+k` to move to the next or previous blank line (the same in visual mode)
     * `ctrl+j`, `ctrl+k` bind to <Down> or <Up> in commandmode and terminalmode
+
+#### File browsing
+Use FZF
+1. For git repo. `<C-o>` is bind to `Files` command
+2. (normal)`go` is bind to `BTags`  command
+
+Use nerdtree
+see below
 
 #### Terminal mode
 * `Alt+e`, `Alt+o`, `Alt+t` to open new shell in vertical window, horizontal window, or a new tab
