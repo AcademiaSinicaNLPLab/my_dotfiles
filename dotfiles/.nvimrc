@@ -147,6 +147,7 @@ augroup SETTINGS
     " Tab
     autocmd BufEnter *.snip set noexpandtab
     autocmd BufLeave *.snip set expandtab
+    autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 augroup END
 "}}}
 
@@ -227,6 +228,7 @@ tnoremap <C-k> <Up>
 nnoremap <leader>n :set nonumber!<CR>
 tnoremap <F5> <C-\><C-n>:call PudbMode()<CR>i
 nnoremap <F5> <C-\><C-n>:call PudbMode()<CR>
+cnoremap qq bwipeout
 "}}}
 
 " ============================================================================
@@ -279,7 +281,7 @@ augroup NEOMAKE_CHECK
     autocmd BufWritePost * Neomake
 augroup End
 let g:neomake_python_pep8_maker = {
-    \ 'args': ['--ignore','E251, E225, E226, W291, W293, E501, E402, E731, E302, E231, E241, E261'],
+    \ 'args': ['--ignore','E225, E231, E226, E402, E501, E731'],
     \ 'errorformat': '%f:%l:%c: %m',
     \ }
 let g:neomake_python_enabled_makers = ['python', 'pep8']
@@ -345,7 +347,8 @@ nnoremap <C-o> :GFiles<Cr>
 inoremap <C-o> <Esc>:GFiles<Cr>
 tnoremap <C-o> <C-\><C-n>:GFiles<Cr>
 
-nnoremap go :BTags<Cr>
+nnoremap <C-M-o> :BTags<Cr>
+inoremap <C-M-o> <Esc>:BTags<Cr>
 
 let g:fzf_action = {
   \ 'space': 'tab drop',

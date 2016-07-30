@@ -1,9 +1,4 @@
 ##ANTIGEN
-if [[ $TERM != "xterm-256color" ]]
-then
-    echo "TERM environment is not set to xterm-256color. If puttye is used, please see http://superuser.com/questions/436910/emulate-256-colors-in-putty-terminal"
-fi
-
 if ! [[ -d ~/.config ]]
 then
         bash ~/my_dotfiles/setup.sh
@@ -89,3 +84,4 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-se
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 ZSH_HIGHLIGHT_STYLES[globbing]=fg=11
+
