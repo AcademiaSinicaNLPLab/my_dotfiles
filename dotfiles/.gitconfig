@@ -1,7 +1,7 @@
 [core]
     editor = nvim
 [user]
-	name = ipod825
+	name = mingo
 	email = ipod825@gmail.com
 [alias]
 	st = status

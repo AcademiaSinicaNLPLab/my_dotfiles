@@ -273,8 +273,26 @@ let g:AutoPairsMapCR = 0
 let g:AutoPairsCenterLine = 0
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMultilineClose = 0
-let g:AutoPairs= {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', "$":"$", '<':'>'}
-let g:AutoPairsParens = {'(':')', '[':']', '{':'}', '<':'>'}
+
+fu! ToggleAutoPair()
+    if !exists("s:originalPairs")
+        let s:originalPairs = copy(g:AutoPairs)
+    endif
+
+    let s:technical_filetypes = ['plaintex', 'markdown', 'asciidoc']
+    if (index(s:technical_filetypes, &ft)>-1)
+        for [key, value] in items({"$":"$", '<':'>'})
+            let g:AutoPairs[key] = value
+        endfor
+    else
+        let g:AutoPairs = copy(s:originalPairs)
+    endif
+endfunction
+
+augroup AUTOPAIRS_SETTING
+    autocmd!
+    autocmd BufEnter * call ToggleAutoPair()
+augroup END
 " neomake
 augroup NEOMAKE_CHECK
     autocmd!
