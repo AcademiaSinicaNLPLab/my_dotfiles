@@ -1,4 +1,4 @@
-" .nvimrc of ipod825 {{{
+" .nvimrc modified from ipod825 {{{
 " Download vim-plug
 let vim_plug_file=expand('~/.nvim/autoload/plug.vim')
 if !filereadable(vim_plug_file)
@@ -78,7 +78,7 @@ set copyindent          " Copy the previous indentation on autoindenting
 set ignorecase          " Ignore case when searching
 set smartcase           " Ignore case when searching only if searching pattern contains only lower letters
 set noautoread          " Do not automatically refresh file after modified (use :e instead)
-set foldmethod=indent   " Folding with indent
+" set foldmethod=indent   " Folding with indent
 set foldnestmax=5       " Maximum folding
 set foldtext=MyFoldText() " Show first line when folding
 set viminfo='10,\"100,:200,n~/.nviminfo "Restore cursor to file position in previous editing session
@@ -145,7 +145,7 @@ augroup GENERAL_AUTOCMD
     " Automatically reload vimrc when editing it
     autocmd BufWritePost *vimrc source %:p
     " Use mark for vimrc
-    autocmd BufEnter *vimrc setlocal foldmethod=marker
+    " autocmd BufEnter *vimrc setlocal foldmethod=marker
     " Help in new tab
     autocmd BufEnter *.txt if &ft == 'help'| wincmd T | endif
     " Diff setting
