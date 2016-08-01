@@ -26,9 +26,13 @@ Plug 'terryma/vim-multiple-cursors' " helpful for refactoring code
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}      " python indent
 Plug 'Shougo/deoplete.nvim', {'do': (function('DoRemote'))} " auto completion
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " align code - helpful for latex table
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
+Plug 'zchee/deoplete-jedi', {'for': 'python'}
+
 "" Git wrapper
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
+
 "" Mapping
 Plug 'nelstrom/vim-visual-star-search' " * in visual mode
 Plug 'vim-scripts/Mouse-Toggle'
@@ -87,6 +91,16 @@ set spellfile="~/.nvim/spell/texmath.utf-8.add"
 if has('unix')
     set t_Co=256
 endif
+
+
+let s:pyenv_neovim2_dir=expand('~/.pyenv/versions/neovim2/bin/python')
+let s:pyenv_neovim3_dir=expand('~/.pyenv/versions/neovim3/bin/python')
+if filereadable(s:pyenv_neovim2_dir)
+    let g:python_host_prog = s:pyenv_neovim2_dir
+endif
+if filereadable(s:pyenv_neovim3_dir)
+    let g:python3_host_prog = s:pyenv_neovim3_dir
+endif
 "}}}
 
 " Appearance {{{
@@ -126,20 +140,22 @@ inoremap <expr> <CR> pumvisible() ? "\<C-S-y>" : "\<C-g>u\<CR>"
 "}}}
 "
 " Main Autocmd Group {{{
-augroup SETTINGS
+augroup GENERAL_AUTOCMD
     autocmd!
     " Automatically reload vimrc when editing it
     autocmd BufWritePost *vimrc source %:p
     " Use mark for vimrc
     autocmd BufEnter *vimrc setlocal foldmethod=marker
     " Help in new tab
-    autocmd BufEnter *.txt if &buftype == 'help'| wincmd T| nnoremap <buffer> q :q<cr>| endif
+    autocmd BufEnter *.txt if &ft == 'help'| wincmd T | endif
     " Diff setting
     autocmd BufWritePost * if &diff == 1 | diffupdate | endif
     " Enter insert mode when enter terminal
-    autocmd! BufEnter * if &buftype == "terminal" | startinsert | endif
-    " Automatically change directory (enumerate filetypes to avoid conflict conflict with vim-fugitive)
-    autocmd BufEnter *.vim,*.html,*.py,*.sh,*.c,*.cpp,*.cc,*.csv,*rc,*.md,*.tex silent! lcd %:p:h
+    autocmd! BufEnter * if &buftype == "terminal" && g:auto_term_insert | startinsert | endif
+    let g:auto_term_insert=1
+    command! ToggleTermInsert execute "let g:auto_term_insert=1-g:auto_term_insert"
+    " Automatically change directory (avoid vim-fugitive)
+    autocmd BufEnter * if &ft != 'gitcommit' | silent! lcd %:p:h | endif
     " Automatically restore cursor position
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
     " Spell
@@ -236,14 +252,22 @@ cnoremap qq bwipeout
 " ============================================================================
 " Add Plugin Setting Here {{{
 " yankstack
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-n> <Plug>yankstack_substitute_newer_paste
+nmap <M-p> <Plug>yankstack_substitute_older_paste
+nmap <M-n> <Plug>yankstack_substitute_newer_paste
+
+" vim-fugitive
+augroup FUGITIVE_AUTOCMD
+    autocmd!
+    " Help in new tab
+    autocmd BufEnter *.git/index if &ft == 'gitcommit' | silent! wincmd T | endif
+augroup END
+
 
 " nerdtree
 let g:NERDTreeMapActivateNode='<Space>'
 let g:NERDTreeMapChdir='<Cr>'
 let g:nerdtreemaprefreshroot='r'
-let NERDTreeIgnore = ['__pycache__$[[dir]]', '\.pyc$']
+let NERDTreeIgnore = ['__pycache__$[[dir]]', '\.pyc$', '\.egg-info$[[dir]]','tags']
 
 " airline
 let g:airline_theme='wombat'
@@ -289,15 +313,11 @@ fu! ToggleAutoPair()
     endif
 endfunction
 
-augroup AUTOPAIRS_SETTING
+augroup AUTOPAIRS_AUTOCMD
     autocmd!
     autocmd BufEnter * call ToggleAutoPair()
 augroup END
 " neomake
-augroup NEOMAKE_CHECK
-    autocmd!
-    autocmd BufWritePost * Neomake
-augroup End
 let g:neomake_python_pep8_maker = {
     \ 'args': ['--ignore','E225, E231, E226, E402, E501, E731'],
     \ 'errorformat': '%f:%l:%c: %m',
@@ -311,6 +331,10 @@ let g:neomake_warning_sign = {
     \ 'text': 'W>',
     \ 'texthl': 'WarningMsg',
     \ }
+augroup NEOMAKE_AUTOCMD
+    autocmd!
+    autocmd BufWritePost * Neomake
+augroup End
 
 " vimtex
 let g:vimtex_view_general_viewer = 'evince'
@@ -381,6 +405,12 @@ let g:sneak#streak = 1
 " let vim_markdown_preview_browser='Firefox'
 let vim_markdown_preview_github=1
 
+" jedi-vim
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#show_call_signatures = "2"
+
+" deoplete-jedi
+let g:deoplete#sources#jedi#show_docstring=1
 
 "}}}
 

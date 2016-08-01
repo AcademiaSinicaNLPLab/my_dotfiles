@@ -1,5 +1,6 @@
 [core]
     editor = nvim
+	excludesfile = /home/mingo/.gitignore_global
 [user]
 	name = mingo
 	email = ipod825@gmail.com
