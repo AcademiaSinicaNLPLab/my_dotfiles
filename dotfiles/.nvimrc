@@ -315,7 +315,9 @@ endfunction
 
 augroup AUTOPAIRS_AUTOCMD
     autocmd!
-    autocmd BufEnter * call ToggleAutoPair()
+    if exists("g:AutoPairs")
+        autocmd BufEnter * call ToggleAutoPair()
+    endif
 augroup END
 " neomake
 let g:neomake_python_pep8_maker = {
